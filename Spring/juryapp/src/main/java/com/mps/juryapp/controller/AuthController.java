@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mps.juryapp.model.User;
-import com.mps.juryapp.repository.AuthRepository;
+import com.mps.juryapp.dto.UserDto;
+import com.mps.juryapp.service.UserServiceImpl;
 
 
 @CrossOrigin(origins = "*")
@@ -19,12 +19,12 @@ import com.mps.juryapp.repository.AuthRepository;
 public class AuthController {
 	
 	@Autowired
-	private AuthRepository authRepository;
+	private UserServiceImpl userServiceImpl;
 	
 
 	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-    public List<User> home(){
-        return authRepository.findAll();
+    public List<UserDto> home(){
+        return userServiceImpl.getUsers();
     }
 }

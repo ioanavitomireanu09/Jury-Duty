@@ -32,10 +32,13 @@ public class User {
 	private String usrToken;
 
 	@Column(name = "ID_CONCURS")
-	private String idConcurs;
+	private Integer idConcurs;
 
-	@Column(name = "NICKNAME")
-	private String nickname;
+	@Column(name = "FIRST_NAM")
+	private String firstNam;
+
+	@Column(name = "LAST_NAM")
+	private String lastNam;
 
 	public Integer getId() {
 		return id;
@@ -77,24 +80,32 @@ public class User {
 		this.usrToken = usrToken;
 	}
 
-	public String getIdConcurs() {
+	public Integer getIdConcurs() {
 		return idConcurs;
 	}
 
-	public void setIdConcurs(String idConcurs) {
+	public void setIdConcurs(Integer idConcurs) {
 		this.idConcurs = idConcurs;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getFirstNam() {
+		return firstNam;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setFirstNam(String firstNam) {
+		this.firstNam = firstNam;
 	}
 
-	public User(Integer id, String usrNam, String usrGroup, String usrPass, String usrToken, String idConcurs,
-			String nickname) {
+	public String getLastNam() {
+		return lastNam;
+	}
+
+	public void setLastNam(String lastNam) {
+		this.lastNam = lastNam;
+	}
+
+	public User(Integer id, String usrNam, String usrGroup, String usrPass, String usrToken, Integer idConcurs,
+			String firstNam, String lastNam) {
 		super();
 		this.id = id;
 		this.usrNam = usrNam;
@@ -102,8 +113,10 @@ public class User {
 		this.usrPass = usrPass;
 		this.usrToken = usrToken;
 		this.idConcurs = idConcurs;
-		this.nickname = nickname;
+		this.firstNam = firstNam;
+		this.lastNam = lastNam;
 	}
 
-	public User() {}
+	public User() {
+	}
 }
