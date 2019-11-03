@@ -1,0 +1,3 @@
+com\mps\juryapp\App.class
+com\mps\juryapp\controller\AuthController.class
+com\mps\juryapp\ServletInitializer.class
