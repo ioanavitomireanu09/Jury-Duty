@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.16, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
 --
--- Host: localhost    Database: jury
+-- Host: 127.0.0.1    Database: jury
 -- ------------------------------------------------------
--- Server version	8.0.16
+-- Server version	8.0.18
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -16,26 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `concurs_type`
+-- Table structure for table `contest_type`
 --
 
-DROP TABLE IF EXISTS `concurs_type`;
+DROP TABLE IF EXISTS `contest_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `concurs_type` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `TYPE` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `contest_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `description` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='types of contests (e.g. syncron, battle, asyncron)';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `concurs_type`
+-- Dumping data for table `contest_type`
 --
 
-LOCK TABLES `concurs_type` WRITE;
-/*!40000 ALTER TABLE `concurs_type` DISABLE KEYS */;
-/*!40000 ALTER TABLE `concurs_type` ENABLE KEYS */;
+LOCK TABLES `contest_type` WRITE;
+/*!40000 ALTER TABLE `contest_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `contest_type` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -47,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-03 20:11:17
+-- Dump completed on 2019-11-05  1:08:10
