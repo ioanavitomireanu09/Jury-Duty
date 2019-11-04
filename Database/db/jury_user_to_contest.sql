@@ -16,27 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `team_to_contests`
+-- Table structure for table `user_to_contest`
 --
 
-DROP TABLE IF EXISTS `team_to_contests`;
+DROP TABLE IF EXISTS `user_to_contest`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `team_to_contests` (
+CREATE TABLE `user_to_contest` (
   `id` int(11) NOT NULL,
-  `team_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `contest_id` int(11) NOT NULL,
-  PRIMARY KEY (`team_id`,`contest_id`)
+  PRIMARY KEY (`user_id`,`contest_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `team_to_contests`
+-- Dumping data for table `user_to_contest`
 --
 
-LOCK TABLES `team_to_contests` WRITE;
-/*!40000 ALTER TABLE `team_to_contests` DISABLE KEYS */;
-/*!40000 ALTER TABLE `team_to_contests` ENABLE KEYS */;
+LOCK TABLES `user_to_contest` WRITE;
+/*!40000 ALTER TABLE `user_to_contest` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_to_contest` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-05  1:16:56
+-- Dump completed on 2019-11-05  1:29:11
