@@ -1,0 +1,61 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+################################ Angular #############################
+# compiled output
+Angular/Web/dist
+Angular/Web/tmp
+Angular/Web/out-tsc
+# Only exists if Bazel was run
+Angular/Web/bazel-out
+
+# dependencies
+Angular/Web/node_modules
+
+# profiling files
+Angular/Web/chrome-profiler-events.json
+Angular/Web/speed-measure-plugin.json
+
+# IDEs and editors
+Angular/Web/.idea
+Angular/Web/.project
+Angular/Web/.classpath
+Angular/Web/.c9/
+Angular/Web/*.launch
+Angular/Web/.settings/
+Angular/Web/*.sublime-workspace
+
+# IDE - VSCode
+Angular/Web/.vscode/*
+Angular/Web/!.vscode/settings.json
+Angular/Web/!.vscode/tasks.json
+Angular/Web/!.vscode/launch.json
+Angular/Web/!.vscode/extensions.json
+Angular/Web/.history/*
+
+# misc
+Angular/Web/.sass-cache
+Angular/Web/connect.lock
+Angular/Web/coverage
+Angular/Web/libpeerconnection.log
+Angular/Web/npm-debug.log
+Angular/Web/yarn-error.log
+Angular/Web/testem.log
+Angular/Web/typings
+
+# System Files
+Angular/Web/.DS_Store
+Angular/Web/Thumbs.db
+
+
+################################ Spring #############################
+
+
+
+
+
+################################ Database #############################
+
+
+
+
+
