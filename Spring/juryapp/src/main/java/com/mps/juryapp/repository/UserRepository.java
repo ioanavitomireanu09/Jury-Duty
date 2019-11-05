@@ -7,5 +7,5 @@ import com.mps.juryapp.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-	User findByUsrNam(String username);
+	User findByUsername(String username);
 }

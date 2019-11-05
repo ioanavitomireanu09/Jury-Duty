@@ -4,11 +4,9 @@ public class UserDto {
 	private Integer id;
 	private String username;
 	private String password;
-	private String token;
-	private Integer idConcurs;
+	private String groupId;
 	private String firstName;
 	private String lastName;
-	private String group;
 
 	public Integer getId() {
 		return id;
@@ -34,20 +32,12 @@ public class UserDto {
 		this.password = password;
 	}
 
-	public String getToken() {
-		return token;
+	public String getGroupId() {
+		return groupId;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	public Integer getIdConcurs() {
-		return idConcurs;
-	}
-
-	public void setIdConcurs(Integer idConcurs) {
-		this.idConcurs = idConcurs;
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 
 	public String getFirstName() {
@@ -66,29 +56,17 @@ public class UserDto {
 		this.lastName = lastName;
 	}
 
-	public String getGroup() {
-		return group;
-	}
-
-	public void setGroup(String group) {
-		this.group = group;
-	}
-
-	public UserDto(Integer id, String username, String password, String token, Integer idConcurs, String firstName,
-			String lastName, String group) {
+	public UserDto(Integer id, String username, String password, String groupId, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.token = token;
-		this.idConcurs = idConcurs;
+		this.groupId = groupId;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.group = group;
 	}
 
 	public UserDto() {
-
 	}
 
 }

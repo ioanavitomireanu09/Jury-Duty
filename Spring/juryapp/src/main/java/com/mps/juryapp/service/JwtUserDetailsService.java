@@ -15,7 +15,7 @@ import com.mps.juryapp.dto.UserDto;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -23,22 +23,17 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUsrNam(username);
+		User user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
-		return new org.springframework.security.core.userdetails.User(user.getUsrNam(), user.getUsrPass(),
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 				new ArrayList<>());
 	}
-	
+
 	public User save(UserDto user) {
-		User newUser = new User();
-		newUser.setUsrNam(user.getUsername());
-		newUser.setUsrPass(bcryptEncoder.encode(user.getPassword()));
-		newUser.setFirstNam(user.getFirstName());
-		newUser.setIdConcurs(user.getIdConcurs());
-		newUser.setLastNam(user.getLastName());
-		newUser.setUsrGroup(user.getGroup());
+		User newUser = new User(user.getUsername(), bcryptEncoder.encode(user.getPassword()), user.getGroupId(),
+				user.getFirstName(), user.getLastName());
 
 		return userRepository.save(newUser);
 	}

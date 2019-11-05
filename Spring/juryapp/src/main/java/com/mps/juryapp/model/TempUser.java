@@ -7,12 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "team_user")
+public class TempUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,7 +79,7 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public User(Integer id, String username, String password, String groupId, String firstName, String lastName) {
+	public TempUser(Integer id, String username, String password, String groupId, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -91,16 +88,8 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-	
-	public User(String username, String password, String groupId, String firstName, String lastName) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.groupId = groupId;
-		this.firstName = firstName;
-		this.lastName = lastName;
+
+	public TempUser() {
 	}
 
-	public User() {
-	}
 }

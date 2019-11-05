@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mps.juryapp.dto.UserDto;
 import com.mps.juryapp.model.User;
 import com.mps.juryapp.repository.UserRepository;
-import com.mps.juryapp.util.BuilderDBtoDto;
+import com.mps.juryapp.util.BuilderDto;
 
 @Service
 @Transactional
@@ -20,14 +20,14 @@ public class UserServiceImpl implements UserService {
 	UserRepository userRepository;
 	
 	@Autowired
-	BuilderDBtoDto builderDBtoDto;
+	BuilderDto builderDto;
 	
 	public List<UserDto> getUsers() {
 		List<UserDto> userDtoList = new ArrayList<UserDto>();
 		
 		List<User> userList = userRepository.findAll();
 		for(User user : userList) {
-			userDtoList.add(builderDBtoDto.userToUserDto(user));
+			userDtoList.add(this.builderDto.userToDto(user));
 		}
 		return userDtoList;
 	}
