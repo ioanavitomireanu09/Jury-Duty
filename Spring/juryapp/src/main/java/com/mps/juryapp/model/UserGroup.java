@@ -17,6 +17,16 @@ public class UserGroup {
 
 	@Column(name = "description")
 	private String description;
+	
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getGroupId() {
 		return groupId;
@@ -34,10 +44,11 @@ public class UserGroup {
 		this.description = description;
 	}
 
-	public UserGroup(String groupId, String description) {
+	public UserGroup(String groupId, String description, String name) {
 		super();
 		this.groupId = groupId;
 		this.description = description;
+		this.name = name;
 	}
 
 	public UserGroup() {
