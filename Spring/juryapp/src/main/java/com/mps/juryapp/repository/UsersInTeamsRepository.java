@@ -7,5 +7,4 @@ import com.mps.juryapp.model.UsersInTeams;
 
 @Repository
 public interface UsersInTeamsRepository extends JpaRepository<UsersInTeams, Integer> {
-	UsersInTeams findByUsername(Integer userId, Integer teamId);
 }
