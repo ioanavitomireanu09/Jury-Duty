@@ -88,6 +88,15 @@ public class TempUser {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
+	
+	public TempUser(String username, String password, String groupId, String firstName, String lastName) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.groupId = groupId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	public TempUser() {
 	}
