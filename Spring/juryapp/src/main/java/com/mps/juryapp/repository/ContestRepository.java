@@ -7,5 +7,5 @@ import com.mps.juryapp.model.Contest;
 
 @Repository
 public interface ContestRepository extends JpaRepository<Contest, Integer> {
-	Contest findByContest(String name);
+	Contest findByName(String name);
 }
