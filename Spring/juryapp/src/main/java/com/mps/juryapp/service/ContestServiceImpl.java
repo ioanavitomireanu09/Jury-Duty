@@ -32,4 +32,40 @@ public class ContestServiceImpl implements ContestService {
 		return contestsDtoList;
 	}
 	
+	public String createContest(Contest contest) {
+		String respose = "";
+		try {
+			contestRepository.save(contest);
+			respose = "SUCCESS";
+		} catch (Exception e) {
+			// TODO: handle exception
+			respose = "ERROR";
+		}
+		return respose;
+	}
+	
+	public String deleteContest(Integer idContest) {
+		String response = "";
+		Contest contest = contestRepository.findById(idContest).orElse(null);
+		if(contest != null) {
+			contestRepository.delete(contest);
+			response = "SUCCESS";
+		} else {
+			response = "ERROR";
+		}
+		return response;
+	}
+	
+	public String updateContest(Contest contest) {
+		String response = "";
+		Contest updateContest = contestRepository.findById(contest.getId()).orElse(null);
+		try {
+			contestRepository.save(contest);
+			response = "SUCCESS";
+		} catch (Exception e) {
+			// TODO: handle exception
+			response = "ERROR";
+		}
+		return response;
+	}
 }

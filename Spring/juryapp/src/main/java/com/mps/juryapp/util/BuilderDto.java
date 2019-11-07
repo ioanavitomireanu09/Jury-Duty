@@ -98,7 +98,6 @@ public class BuilderDto {
 		UserGroupDto userGroupDto = new UserGroupDto();
 
 		userGroupDto.setGroupId(userGroup.getGroupId());
-		userGroupDto.setName(userGroup.getName());
 		userGroupDto.setDescription(userGroup.getDescription());
 
 		return userGroupDto;

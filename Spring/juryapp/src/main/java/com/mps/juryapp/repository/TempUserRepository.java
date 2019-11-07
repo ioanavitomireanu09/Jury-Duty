@@ -7,5 +7,5 @@ import com.mps.juryapp.model.TempUser;
 
 @Repository
 public interface TempUserRepository extends JpaRepository<TempUser, Integer> {
-
+	public TempUser findByUsername(String username);
 }
