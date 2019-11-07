@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mps.juryapp.dto.ContestDto;
+import com.mps.juryapp.dto.Stats;
 import com.mps.juryapp.model.Contest;
 import com.mps.juryapp.model.JwtRequest;
 import com.mps.juryapp.model.TempUser;
@@ -21,6 +22,7 @@ import com.mps.juryapp.model.UserGroup;
 import com.mps.juryapp.repository.TempUserRepository;
 import com.mps.juryapp.repository.UserGroupRepository;
 import com.mps.juryapp.service.ContestService;
+import com.mps.juryapp.service.ContestToTeamsService;
 import com.mps.juryapp.service.UserService;
 
 @RestController
@@ -35,6 +37,8 @@ public class CoreController {
 	UserService userService;
 	@Autowired
 	ContestService contestService;
+	@Autowired
+	ContestToTeamsService contestToTeamsService;
 	
 	@RequestMapping(value = "/user-requests", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -87,6 +91,11 @@ public class CoreController {
 		return ResponseEntity.ok(contestService.getContests());
 	}
 	
-	
+	@RequestMapping(value = "/get-stats", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<List<Stats>> getTeamsStats(@RequestBody Integer idContests) {
+		
+		return ResponseEntity.ok(contestToTeamsService.getStats(idContests));
+	}
 
 }
