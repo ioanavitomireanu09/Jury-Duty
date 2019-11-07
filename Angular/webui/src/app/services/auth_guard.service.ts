@@ -32,4 +32,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         this.router.navigate(['login',]);
         return false;
     }
+
+    getToken() {
+        return this.userInfoService.getStoredToken();
+    }
 }

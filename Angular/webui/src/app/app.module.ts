@@ -2,10 +2,9 @@
 import { BrowserModule }    from '@angular/platform-browser';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule }         from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule }     from '@angular/router';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MatSnackBarModule, MatTableModule } from '@angular/material';
 
 //Third Party Modules
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -52,6 +51,8 @@ import { OrderService     } from './services/api/order.service';
 import { ProductService   } from './services/api/product.service';
 import { CustomerService  } from './services/api/customer.service';
 import { EmployeeService  } from './services/api/employee.service';
+import { UserService      } from './services/api/user.service';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 
 @NgModule({
@@ -113,6 +114,13 @@ import { EmployeeService  } from './services/api/employee.service';
     CustomerService,
     EmployeeService,
     AppConfig,
+    UserService,
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi   : true,
+    }
+    
   ],
 
   bootstrap: [AppComponent]

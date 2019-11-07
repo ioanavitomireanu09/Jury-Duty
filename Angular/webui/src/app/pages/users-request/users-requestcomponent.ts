@@ -1,7 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
+import { Router, ActivatedRoute, Params } from "@angular/router";
 import { LoginService } from "app/services/api/login.service";
 import { ApiRequestService } from "app/services/api/api-request.service";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { OrderService } from "app/services/api/order.service";
+import { UserService } from "app/services/api/user.service";
 
 
 @Component({
@@ -11,55 +14,33 @@ import { ApiRequestService } from "app/services/api/api-request.service";
 })
 
 export class UsersRequestComponent implements OnInit {
-    
-    constructor(
-        private router: Router,
-        private loginService: LoginService,
-        private apiRequest: ApiRequestService) { }
+  @ViewChild('orderStatusCellTpl') statusCellTpl: TemplateRef<any>;
+    @ViewChild('orderIdTpl') orderIdTpl: TemplateRef<any>;
+    columns:any[];
+    rows:any[];
+    isLoading:boolean=false;
+    constructor(private router: Router, private orderService: UserService) { }
 
     ngOnInit() {
+        var me = this;
+        me.getPageData();
+        this.columns=[
+            {prop:"username"   , name: "Username"           , width:65, cellTemplate: this.orderIdTpl   },
+            {prop:"firstName"  , name: "First Name"         , width:105 },
+            {prop:"lastName"   , name: "Last Name"          , width:85, cellTemplate: this.statusCellTpl },
+            {prop:"groupId"    , name: "Group"              , width:150 }
+        ];
     }
 
-
-    settings = {
-      columns: {
-        id: {
-          title: 'ID'
-        },
-        name: {
-          title: 'Full Name'
-        },
-        username: {
-          title: 'User Name'
-        },
-        email: {
-          title: 'Email'
-        }
-      }
-    };
-
-    data = [
-      {
-        id: 1,
-        name: "Leanne Graham",
-        username: "Bret",
-        email: "Sincere@april.biz"
-      },
-      {
-        id: 2,
-        name: "Ervin Howell",
-        username: "Antonette",
-        email: "Shanna@melissa.tv"
-      },
-      
-      // ... list of items
-      
-      {
-        id: 11,
-        name: "Nicholas DuBuque",
-        username: "Nicholas.Stanton",
-        email: "Rey.Padberg@rosamond.biz"
-      }
-    ];
-
+    getPageData() {
+        var me = this;
+        let legendColors = {"On Hold":'#ef2e2e', "Shipped":'#ff8e28', "Complete":'#61c673', "New":'#007cbb'};
+        me.isLoading=true;
+        me.orderService.getTempUsersInfo()
+        .subscribe(function(tempUsersData){
+            me.rows = tempUsersData;
+            me.isLoading=false;
+            console.log("Got Order Data");
+        })
+    }
 }

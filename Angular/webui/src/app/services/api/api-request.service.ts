@@ -25,14 +25,17 @@ export class ApiRequestService {
         let token = this.userInfoService.getStoredToken();
         headers = headers.append('Content-Type', 'application/json');
         if (token !== null) {
-            headers = headers.append("Authorization", token);
+            headers = headers.append("Authorization", `Bearer ${token}`);
         }
         return headers;
     }
 
     get(url:string, urlParams?:HttpParams):Observable<any>{
         let me = this;
-        return this.http.get(this.appConfig.baseApiPath + url, {headers:this.getHeaders(),  params:urlParams} )
+        let reqHeader = new HttpHeaders({ 
+            'Authorization': 'Bearer ' + this.userInfoService.getStoredToken()
+         });
+        return this.http.get(this.appConfig.baseApiPath + url)
             .catch(function(error:any){
                 console.log("Some error in catch");
                 if (error.status === 401 || error.status === 403){
