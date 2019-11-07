@@ -98,4 +98,28 @@ public class CoreController {
 		return ResponseEntity.ok(contestToTeamsService.getStats(idContests));
 	}
 
+	@RequestMapping(value = "/start-contest", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<ContestDto> startContest(@RequestBody Integer contestId) {
+		return ResponseEntity.ok(contestService.startContest(contestId));
+	}
+	
+	@RequestMapping(value = "/stop-contest", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<ContestDto> stopContest(@RequestBody Integer contestId) {
+		return ResponseEntity.ok(contestService.stopContest(contestId));
+	}
+	
+	@RequestMapping(value = "/start-round", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<ContestDto> startRound(@RequestBody Integer contestId) {
+		return ResponseEntity.ok(contestService.startRound(contestId));
+	}
+	
+	@RequestMapping(value = "/stop-round", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<ContestDto> stopRound(@RequestBody Integer contestId) {
+		return ResponseEntity.ok(contestService.stopRound(contestId));
+	}
+	
 }

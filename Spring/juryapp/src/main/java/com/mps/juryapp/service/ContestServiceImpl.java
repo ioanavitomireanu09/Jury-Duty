@@ -68,4 +68,74 @@ public class ContestServiceImpl implements ContestService {
 		}
 		return response;
 	}
+
+	@Override
+	public ContestDto startContest(Integer contestId) {
+		return modifyState(contestId, 1);
+	}
+	
+	@Override
+	public ContestDto stopContest(Integer contestId) {
+		return modifyState(contestId, 2);
+	}
+	
+	@Override
+	public ContestDto modifyState (Integer contestId, Integer state) {
+		ContestDto returnedContest = new ContestDto();
+		List<Contest> contestList = contestRepository.findAll();
+		for (Contest contest : contestList) {
+			if (contest.getId() == contestId) {
+				contest.setState(state);
+				returnedContest.setState(state);
+				try {
+					updateContest(contest);
+				} catch (Exception e) {
+				}
+			}
+		}
+		return returnedContest;
+	}
+
+	@Override
+	public ContestDto startRound(Integer contestId) {
+		ContestDto returnedContest = new ContestDto();
+		List<Contest> contestList = contestRepository.findAll();
+		for (Contest contest : contestList) {
+			if (contest.getId() == contestId) {
+				contest.setRoundState(1);
+				returnedContest.setRound_state(1);
+				try {
+					updateContest(contest);
+				} catch (Exception e) {
+				}
+			}
+		}
+		return returnedContest;
+	}
+
+	@Override
+	public ContestDto stopRound(Integer contestId) {
+
+		ContestDto returnedContest = new ContestDto();
+		List<Contest> contestList = contestRepository.findAll();
+		for (Contest contest : contestList) {
+			if (contest.getId() == contestId) {
+				contest.setCurrentRound(contest.getCurrentRound() + 1);
+				returnedContest.setCurrent_round(returnedContest.getCurrent_round() + 1);
+				if (contest.getCurrentRound() == contest.getNumOfRounds()) {
+					contest.setRoundState(2);
+					returnedContest.setRound_state(2);
+				} else {
+					contest.setRoundState(0);
+					returnedContest.setRound_state(0);
+				}
+				try {
+					updateContest(contest);
+				} catch (Exception e) {
+					//TODO: nothing again :)
+				}
+			}
+		}
+		return returnedContest;
+	}
 }
