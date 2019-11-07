@@ -35,22 +35,24 @@ public class JwtUserDetailsService implements UserDetailsService {
 				new ArrayList<>());
 	}
 
-	public User save(UserDto user) {
+	public String save(UserDto user) {
 		User newUser = new User(user.getUsername(), bcryptEncoder.encode(user.getPassword()), user.getGroupId(),
 				user.getFirstName(), user.getLastName());
-		if (!userRepository.existsById(newUser.getId())) {
-			if (newUser.getGroupId() == "ORG" || newUser.getGroupId() == "ADM") {
+		if (userRepository.findByUsername(user.getUsername()) == null) {
+			if (newUser.getGroupId() >= 4) {
 				TempUser tempUser = new TempUser(user.getUsername(), user.getPassword(),
 						user.getGroupId(), user.getFirstName(), user.getLastName());
 				try {
 					tempUserRepository.save(tempUser);
-					return newUser;
+					return "WAIT";
 				} catch (Exception e) {
-					return new User();
+					return "ERROR";
 				}
-			} else
-				return userRepository.save(newUser);
+			} else {
+				userRepository.save(newUser);
+				return "SAVE";
+			}
 		} else
-			return new User();
+			return "EXIST";
 	}
 }

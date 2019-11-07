@@ -34,12 +34,14 @@ export class HomeComponent   {
         { label: 'Orders'   , href: '/home/orders'    , subNav: []},
         { label: 'Products' , href: '/home/products'  , subNav: []},
         { label: 'Customers', href: '/home/customers' , subNav: []},
-        { label: 'Employees', href: '/home/employees' , subNav: []}
+        { label: 'Employees', href: '/home/employees' , subNav: []},
+        { label: 'Requests', href: '/home/users-request' , subNav: []}
     ];
 
     public selectedHeaderItemIndex:number=0;
     public selectedSubNavItemIndex:number=1;
     public userName: string="";
+    public triggeredSideBar = true;
 
     constructor(
         private router:Router,
@@ -72,5 +74,22 @@ export class HomeComponent   {
     closeAppAlert(){
         this.showAppAlert=false;
     }
+    triggerNavBar() {
+        if (this.triggeredSideBar)
+            this.openNav()
+        else
+            this.closeNav()
+        this.triggeredSideBar = !this.triggeredSideBar;
+    }
 
+    openNav() {
+        document.getElementById("mySidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+      }
+      
+      /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+    closeNav() {
+        document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+      } 
 }

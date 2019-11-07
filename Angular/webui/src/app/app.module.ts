@@ -5,6 +5,7 @@ import { NgModule }         from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule }     from '@angular/router';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatSnackBarModule, MatTableModule } from '@angular/material';
 
 //Third Party Modules
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -37,6 +38,7 @@ import { OrdersComponent       } from './pages/orders/orders.component';
 import { OrderDetailsComponent } from './pages/order_details/order_details.component';
 import { EmployeesComponent    } from './pages/employees/employees.component';
 import { RegisterComponent     } from './pages/register/register.component';
+import { UsersRequestComponent } from './pages/users-request/users-requestcomponent'
 
 
 // Services
@@ -66,6 +68,7 @@ import { EmployeeService  } from './services/api/employee.service';
     NgxChartsModule,
     ClarityModule.forChild(),
 
+
     // Local App Modules
     AppRoutingModule
 
@@ -92,6 +95,8 @@ import { EmployeeService  } from './services/api/employee.service';
     OrdersComponent,
     OrderDetailsComponent,
     RegisterComponent,
+    UsersRequestComponent,
+    
 
     //Directives
     TrackScrollDirective

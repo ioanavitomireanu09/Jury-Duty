@@ -46,6 +46,9 @@ Angular/Web/typings
 Angular/Web/.DS_Store
 Angular/Web/Thumbs.db
 
+Angular/webui/node_modules/**
+Angular/webui/package-lock.json
+
 
 ################################ Spring #############################
 
@@ -59,3 +62,4 @@ Angular/Web/Thumbs.db
 
 
 
+Spring/juryapp/target/**

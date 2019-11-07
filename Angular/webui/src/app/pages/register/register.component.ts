@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { LoginService } from "app/services/api/login.service";
+import { ApiRequestService } from "app/services/api/api-request.service";
 
 
 @Component({
@@ -15,37 +16,35 @@ export class RegisterComponent implements OnInit {
     errMsg:string = '';
     constructor(
         private router: Router,
-        private loginService: LoginService) { }
+        private loginService: LoginService,
+        private apiRequest: ApiRequestService) { }
 
     ngOnInit() {
          // reset login status
          this.loginService.logout(false);
     }
 
-    register() {
+    register() { 
 
-        this.loginService.register(this.model)
-            .subscribe(resp => {
+      this.apiRequest.post('register', this.model)
+            .subscribe(res => {
                     // if (resp.user === undefined || resp.user.token === undefined || resp.user.token === "INVALID" ){
                     //     this.errMsg = 'Username or password is incorrect';
                     //     return;
                     // }
-                    this.router.navigate(["/login"]);
-                },
-                errResponse => {
-                  switch(errResponse.status){
-                    case 401:
-                      this.errMsg = 'Username or password is incorrect';
-                      break;
-                    case 404:
-                      this.errMsg = 'Service not found';
-                    case 408:
-                      this.errMsg = 'Request Timedout';
-                    case 500:
-                      this.errMsg = 'Internal Server Error';
-                    default:
-                      this.errMsg = 'Server Error';
-                  }
+                    switch (res) {
+                      case "SAVE":
+                          this.router.navigate(["/login"]);
+                        break;
+                      case "WAIT":
+                          this.errMsg = 'You need to wait for approval';
+                          break;
+                      case "EXIST":
+                          this.errMsg = 'The user already exist';
+                      default:
+                          this.errMsg = 'Server Error';
+                        break;
+                    }
                 }
             );
     }

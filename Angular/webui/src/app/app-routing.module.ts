@@ -13,10 +13,11 @@ import { CustomersComponent    }   from './pages/customers/customers.component';
 import { OrdersComponent       }   from './pages/orders/orders.component';
 import { OrderDetailsComponent }   from './pages/order_details/order_details.component';
 import { EmployeesComponent    }   from './pages/employees/employees.component';
+import { UsersRequestComponent }   from './pages/users-request/users-requestcomponent';
 
 import { AuthGuard } from './services/auth_guard.service';
 import { PageNotFoundComponent }  from './pages/404/page-not-found.component';
-import { RegisterComponent } from './pages/register/register.component';
+import { RegisterComponent } from "./pages/register/register.component";
 
 export const routes: Routes = [
   //Important: The sequence of path is important as the router go over then in sequential manner
@@ -37,15 +38,16 @@ export const routes: Routes = [
                 { path: 'product' , component: ProductStatsComponent   , data:[{selectedHeaderItemIndex:0, selectedSubNavItemIndex:1}]  }
             ]
         },
-        { path:'orders'    , component: OrdersComponent      , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:-1}]  },
-        { path:'orders/:id', component: OrderDetailsComponent, data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:-1}]  },
-        { path:'products'  , component: ProductsComponent    , data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:-1}]  },
-        { path:'customers' , component: CustomersComponent   , data:[{selectedHeaderItemIndex:3, selectedSubNavItemIndex:-1}]  },
-        { path:'employees' , component: EmployeesComponent   , data:[{selectedHeaderItemIndex:4, selectedSubNavItemIndex:-1}]  },
+        { path:'orders'       , component: OrdersComponent      , data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:-1}]  },
+        { path:'orders/:id'   , component: OrderDetailsComponent, data:[{selectedHeaderItemIndex:1, selectedSubNavItemIndex:-1}]  },
+        { path:'products'     , component: ProductsComponent    , data:[{selectedHeaderItemIndex:2, selectedSubNavItemIndex:-1}]  },
+        { path:'customers'    , component: CustomersComponent   , data:[{selectedHeaderItemIndex:3, selectedSubNavItemIndex:-1}]  },
+        { path:'employees'    , component: EmployeesComponent   , data:[{selectedHeaderItemIndex:4, selectedSubNavItemIndex:-1}]  },
+        { path:'users-request', component: UsersRequestComponent   , data:[{selectedHeaderItemIndex:5, selectedSubNavItemIndex:-1}]  },
     ]
   },
   { path: 'login' , component: LoginComponent       , data:[{selectedHeaderItemIndex:-1, selectedSubNavItemIndex:-1}] },
-  { path: 'register' , component: RegisterComponent       , data:[{selectedHeaderItemIndex:-1, selectedSubNavItemIndex:-1}] },
+  { path: 'register' , component: RegisterComponent , data:[{selectedHeaderItemIndex:-1, selectedSubNavItemIndex:-1}] },
   { path: 'logout', component: LogoutComponent      , data:[{selectedHeaderItemIndex:-1, selectedSubNavItemIndex:-1}] },
   { path: '**'    , component: PageNotFoundComponent, data:[{selectedHeaderItemIndex:-1, selectedSubNavItemIndex:-1}] }
 

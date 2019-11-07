@@ -17,8 +17,9 @@ import com.mps.juryapp.config.JwtTokenUtil;
 import com.mps.juryapp.dto.UserDto;
 import com.mps.juryapp.model.JwtRequest;
 import com.mps.juryapp.model.JwtResponse;
+import com.mps.juryapp.model.User;
+import com.mps.juryapp.repository.UserRepository;
 import com.mps.juryapp.service.JwtUserDetailsService;
-
 
 @RestController
 @CrossOrigin
@@ -33,19 +34,21 @@ public class JwtAuthenticationController {
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
 
+	@Autowired
+	UserRepository userRepository;
+
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
-	
+
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDto user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));

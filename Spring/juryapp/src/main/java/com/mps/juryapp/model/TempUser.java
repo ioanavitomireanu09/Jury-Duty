@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "team_user")
+@Table(name = "temp_user")
 public class TempUser {
 
 	@Id
@@ -23,7 +23,7 @@ public class TempUser {
 	private String password;
 
 	@Column(name = "group_id")
-	private String groupId;
+	private Integer groupId;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -55,11 +55,11 @@ public class TempUser {
 		this.password = password;
 	}
 
-	public String getGroupId() {
+	public Integer getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(String groupId) {
+	public void setGroupId(Integer groupId) {
 		this.groupId = groupId;
 	}
 
@@ -79,7 +79,7 @@ public class TempUser {
 		this.lastName = lastName;
 	}
 
-	public TempUser(Integer id, String username, String password, String groupId, String firstName, String lastName) {
+	public TempUser(Integer id, String username, String password, Integer groupId, String firstName, String lastName) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -88,8 +88,8 @@ public class TempUser {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-	
-	public TempUser(String username, String password, String groupId, String firstName, String lastName) {
+
+	public TempUser(String username, String password, Integer groupId, String firstName, String lastName) {
 		super();
 		this.username = username;
 		this.password = password;

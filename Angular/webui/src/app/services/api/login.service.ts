@@ -33,29 +33,6 @@ export class LoginService {
         private apiRequest: ApiRequestService
     ) {}
 
-    register(user:UserDto) {
-        let registerDataSubject:BehaviorSubject<any> = new BehaviorSubject<any>([]);
-        let regsiterInfoReturn:LoginInfoInStorage;
-        this.apiRequest.post('register', user)
-            .subscribe(
-                response => {
-                    regsiterInfoReturn = {
-                        "success"    : true,
-                        "message"    : "Operation end with SUCCESS",
-                        "landingPage": "/login"
-                    };
-                    registerDataSubject.next(regsiterInfoReturn);
-                },
-                err => {
-                    regsiterInfoReturn = {
-                        "success": false,
-                        "message": err.url + " >>> " + err.statusText +  "[" + err.status +"]",
-                        "landingPage": "/login"
-                    };
-                }
-            )
-        return registerDataSubject;
-    }
     getToken(username:string, password:string): Observable<any> {
         let me = this;
 
