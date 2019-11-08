@@ -13,13 +13,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mps.juryapp.dto.AddUserToContest;
 import com.mps.juryapp.dto.ContestDto;
+import com.mps.juryapp.dto.ContestToInsert;
 import com.mps.juryapp.model.Contest;
 import com.mps.juryapp.model.JwtRequest;
+import com.mps.juryapp.model.Team;
 import com.mps.juryapp.model.TempUser;
 import com.mps.juryapp.model.UserGroup;
+import com.mps.juryapp.model.UserToContest;
+import com.mps.juryapp.model.UsersInTeams;
 import com.mps.juryapp.repository.TempUserRepository;
 import com.mps.juryapp.repository.UserGroupRepository;
+import com.mps.juryapp.repository.UsersInTeamsRepository;
 import com.mps.juryapp.service.ContestService;
 import com.mps.juryapp.service.UserService;
 
@@ -30,6 +36,8 @@ public class CoreController {
 	TempUserRepository tempUserRepository;
 	@Autowired
 	UserGroupRepository userGroupRepository; 
+	@Autowired
+	UsersInTeamsRepository usersInTeamsRepository;
 	
 	@Autowired
 	UserService userService;
@@ -64,13 +72,13 @@ public class CoreController {
 	
 	@RequestMapping(value = "/create-contest", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> createContest(@RequestBody Contest contest) {
-		return ResponseEntity.ok(contestService.createContest(contest));
+	public ResponseEntity<String> createContest(@RequestBody ContestToInsert contestToInsert) {
+		return ResponseEntity.ok(contestService.createContest(contestToInsert));
 	}
 	
 	@RequestMapping(value = "/update-contest", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<String> updateContest(@RequestBody Contest contest) {
+	public ResponseEntity<String> updateContest(@RequestBody ContestToInsert contest) {
 		return ResponseEntity.ok(contestService.updateContest(contest));
 	}
 	
@@ -82,11 +90,42 @@ public class CoreController {
 	
 	@RequestMapping(value = "/get-contests", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<List<ContestDto>> getContests() {
-		
-		return ResponseEntity.ok(contestService.getContests());
+	public ResponseEntity<List<ContestDto>> getContests(@RequestParam(name = "username", required = false) String username) {
+		if (username == null) {
+			return ResponseEntity.ok(contestService.getContests());			
+		} else {
+			return ResponseEntity.ok(contestService.getContests(username));	
+		}
 	}
 	
+	@RequestMapping(value = "/add-user-contest", method = RequestMethod.POST, consumes=MediaType.TEXT_PLAIN_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> addUserToContest(@RequestBody UserToContest userToContest) {
+		return ResponseEntity.ok(contestService.addUserToContest(userToContest));
+	}
 	
+	@RequestMapping(value = "/add-user-team", method = RequestMethod.POST, consumes=MediaType.TEXT_PLAIN_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> addUserToContest(@RequestBody UsersInTeams usersInTeams) {
+		String response = "";
+		try {
+			usersInTeamsRepository.save(usersInTeams);
+			response = "SUCCESS";
+		} catch (Exception e) {
+			// TODO: handle exception
+			response = "ERROR";
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+//	@RequestMapping(value = "/get-teams", method = RequestMethod.GET, produces = "application/json")
+//	@ResponseBody
+//	public ResponseEntity<List<Team>> getTeams(@RequestParam(name = "username", required = false) String username) {
+//		if (username == null) {
+//			return ResponseEntity.ok(contestService.getContests());			
+//		} else {
+//			return ResponseEntity.ok(contestService.getContests(username));	
+//		}
+//	}
 
 }

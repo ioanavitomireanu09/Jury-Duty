@@ -28,7 +28,7 @@ public class Contest {
 	@Column(name = "current_round")
 	private Integer currentRound;
 
-	@Column(name = "round_sate")
+	@Column(name = "round_state")
 	private Integer roundState;
 
 	@Column(name = "num_of_participants")
@@ -43,11 +43,14 @@ public class Contest {
 	@Column(name = "num_of_jurys")
 	private Integer numOfJurys;
 
-	@Column(name = "possword")
+	@Column(name = "password")
 	private String password;
 
 	@Column(name = "num_of_rounds")
 	private Integer numOfRounds;
+
+	@Column(name = "org_username")
+	private String orgUsername;
 
 	public Integer getId() {
 		return id;
@@ -145,9 +148,17 @@ public class Contest {
 		this.numOfRounds = numOfRounds;
 	}
 
+	public String getOrgUsername() {
+		return orgUsername;
+	}
+
+	public void setOrgUsername(String orgUsername) {
+		this.orgUsername = orgUsername;
+	}
+
 	public Contest(Integer id, String name, Integer contestTypeId, Integer state, Integer currentRound,
 			Integer roundState, Integer numOfParticipants, Integer isPrivate, Integer tieBreakerId, Integer numOfJurys,
-			String password, Integer numOfRounds) {
+			String password, Integer numOfRounds, String orgUsername) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -161,6 +172,7 @@ public class Contest {
 		this.numOfJurys = numOfJurys;
 		this.password = password;
 		this.numOfRounds = numOfRounds;
+		this.orgUsername = orgUsername;
 	}
 
 	public Contest() {
