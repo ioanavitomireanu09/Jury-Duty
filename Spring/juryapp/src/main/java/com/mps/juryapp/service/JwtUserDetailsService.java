@@ -39,7 +39,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		User newUser = new User(user.getUsername(), bcryptEncoder.encode(user.getPassword()), user.getGroupId(),
 				user.getFirstName(), user.getLastName());
 		if (userRepository.findByUsername(user.getUsername()) == null) {
-			if (newUser.getGroupId() >= 4) {
+			if (newUser.getGroupId().equals("ORG") || newUser.getGroupId().equals("ADM")) {
 				TempUser tempUser = new TempUser(user.getUsername(), user.getPassword(),
 						user.getGroupId(), user.getFirstName(), user.getLastName());
 				try {
