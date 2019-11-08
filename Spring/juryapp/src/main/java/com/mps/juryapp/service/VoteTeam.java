@@ -7,7 +7,7 @@ import com.mps.juryapp.model.GradeType;
 public class VoteTeam {
 	private Integer contestId;
 	private Integer teamId;
-	private GradeValue gradeValue;
+	private ArrayList<GradeValue> gradeValue;
 	private Integer juryId;
 	private Integer nrRound;
 	
@@ -23,10 +23,10 @@ public class VoteTeam {
 	public void setTeamId(Integer teamId) {
 		this.teamId = teamId;
 	}
-	public GradeValue getGradeValue() {
+	public ArrayList<GradeValue> getGradeValue() {
 		return gradeValue;
 	}
-	public void setGradeValue(GradeValue gradeValue) {
+	public void setGradeValue(ArrayList<GradeValue> gradeValue) {
 		this.gradeValue = gradeValue;
 	}
 	public Integer getJuryId() {
@@ -41,7 +41,8 @@ public class VoteTeam {
 	public void setNrRound(Integer nrRound) {
 		this.nrRound = nrRound;
 	}
-	public VoteTeam(Integer contestId, Integer teamId, GradeValue gradeValue, Integer juryId, Integer nrRound) {
+	public VoteTeam(Integer contestId, Integer teamId, ArrayList<GradeValue> gradeValue, Integer juryId,
+			Integer nrRound) {
 		super();
 		this.contestId = contestId;
 		this.teamId = teamId;
@@ -51,4 +52,5 @@ public class VoteTeam {
 	}
 	
 	public VoteTeam() {}
+	
 }

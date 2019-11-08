@@ -1,6 +1,8 @@
 package com.mps.juryapp.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mps.juryapp.dto.ContestDto;
 import com.mps.juryapp.dto.ContestToInsert;
 import com.mps.juryapp.dto.GradeWeight;
+import com.mps.juryapp.dto.ContestToTeamsDto;
+import com.mps.juryapp.dto.Stats;
 import com.mps.juryapp.model.Contest;
 import com.mps.juryapp.model.ContestToGrades;
 import com.mps.juryapp.model.User;
@@ -19,6 +23,7 @@ import com.mps.juryapp.repository.ContestRepository;
 import com.mps.juryapp.repository.ContestToGradesRepository;
 import com.mps.juryapp.repository.UserRepository;
 import com.mps.juryapp.repository.UserToContestRepository;
+import com.mps.juryapp.repository.ContestToTeamsRepository;
 import com.mps.juryapp.util.BuilderDto;
 
 @Service
@@ -34,6 +39,12 @@ public class ContestServiceImpl implements ContestService {
 	@Autowired
 	ContestToGradesRepository contestToGradesRepository; 
 
+	ContestToTeamsService contestToTeamsService;
+	@Autowired
+	ContestToTeamsServiceImpl contestToTeamsServiceImpl;
+	@Autowired
+	ContestToTeamsRepository contestToTeamsRepository;
+	
 	@Autowired
 	BuilderDto builderDto;
 	
@@ -168,5 +179,96 @@ public class ContestServiceImpl implements ContestService {
 			response = "ERROR";
 		}
 		return response;
+	}
+
+	@Override
+	public ContestDto startContest(Integer contestId) {
+		return modifyState(contestId, 1);
+	}
+	
+	@Override
+	public ContestDto stopContest(Integer contestId) {
+		return modifyState(contestId, 2);
+	}
+	
+	@Override
+	public ContestDto modifyState (Integer contestId, Integer state) {
+		ContestDto returnedContest = new ContestDto();
+		List<Contest> contestList = contestRepository.findAll();
+		for (Contest contest : contestList) {
+			if (contest.getId() == contestId) {
+				contest.setState(state);
+				returnedContest.setState(state);
+				try {
+					updateContest(contest);
+				} catch (Exception e) {
+				}
+			}
+		}
+		return returnedContest;
+	}
+
+	@Override
+	public ContestDto startRound(Integer contestId) {
+		ContestDto returnedContest = new ContestDto();
+		List<Contest> contestList = contestRepository.findAll();
+		for (Contest contest : contestList) {
+			if (contest.getId() == contestId) {
+				contest.setRoundState(1);
+				returnedContest.setRound_state(1);
+				try {
+					updateContest(contest);
+				} catch (Exception e) {
+				}
+			}
+		}
+		return returnedContest;
+	}
+
+	class GradeComparator implements Comparator<Stats> {
+		
+		@Override
+	    public int compare(Stats a, Stats b) {
+	        if (a.getAverageGrade() > b.getAverageGrade())
+	        	return -1;
+	        return 1;
+	    }
+	}
+	
+	@Override
+	public ContestDto stopRound(Integer contestId) {
+
+		ContestDto returnedContest = new ContestDto();
+		List<Contest> contestList = contestRepository.findAll();
+		for (Contest contest : contestList) {
+			if (contest.getId() == contestId) {
+				contest.setCurrentRound(contest.getCurrentRound() + 1);
+				returnedContest.setCurrent_round(returnedContest.getCurrent_round() + 1);
+				if (contest.getCurrentRound() == contest.getNumOfRounds()) {
+					contest.setRoundState(2);
+					returnedContest.setRound_state(2);
+				} else {
+					contest.setRoundState(0);
+					returnedContest.setRound_state(0);
+				}
+				try {
+					int elim = contest.getNumOfParticipants() / (contest.getNumOfRounds() - contest.getCurrentRound());
+					if (elim > contest.getNumOfParticipants()) {
+						contest.setCurrentRound(contest.getNumOfRounds());
+					} else {
+						contest.setNumOfParticipants(contest.getNumOfParticipants() - elim);
+						List<Stats> stats = contestToTeamsService.getStats(contestId);
+						//suppose grades are already submitted
+						Collections.sort(stats, new GradeComparator());
+						//TODO: delete
+					}
+					
+					updateContest(contest);
+				} catch (Exception e) {
+					//TODO: nothing again :)
+				}
+			}
+		}
+		return returnedContest;
 	}
 }

@@ -14,5 +14,11 @@ public interface ContestService {
 	public String deleteContest(Integer idContest);
 	public String updateContest(ContestToInsert contest);
 	public String addUserToContest(UserToContest userToContest);
+	public String updateContest(Contest contest);
+	public ContestDto startContest(Integer constestId);
+	public ContestDto stopContest(Integer constestId);
+	public ContestDto modifyState(Integer contestId, Integer state);
+	public ContestDto startRound(Integer contestId);
+	public ContestDto stopRound(Integer contestId);
 	
 }

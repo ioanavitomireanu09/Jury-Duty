@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mps.juryapp.dto.AddUserToContest;
 import com.mps.juryapp.dto.ContestDto;
 import com.mps.juryapp.dto.ContestToInsert;
+import com.mps.juryapp.dto.Stats;
 import com.mps.juryapp.model.Contest;
 import com.mps.juryapp.model.JwtRequest;
 import com.mps.juryapp.model.Team;
@@ -27,6 +28,7 @@ import com.mps.juryapp.repository.TempUserRepository;
 import com.mps.juryapp.repository.UserGroupRepository;
 import com.mps.juryapp.repository.UsersInTeamsRepository;
 import com.mps.juryapp.service.ContestService;
+import com.mps.juryapp.service.ContestToTeamsService;
 import com.mps.juryapp.service.UserService;
 
 @RestController
@@ -43,6 +45,8 @@ public class CoreController {
 	UserService userService;
 	@Autowired
 	ContestService contestService;
+	@Autowired
+	ContestToTeamsService contestToTeamsService;
 	
 	@RequestMapping(value = "/user-requests", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -127,5 +131,35 @@ public class CoreController {
 //			return ResponseEntity.ok(contestService.getContests(username));	
 //		}
 //	}
+	@RequestMapping(value = "/get-stats", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<List<Stats>> getTeamsStats(@RequestBody Integer idContests) {
+		
+		return ResponseEntity.ok(contestToTeamsService.getStats(idContests));
+	}
 
+	@RequestMapping(value = "/start-contest", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<ContestDto> startContest(@RequestBody Integer contestId) {
+		return ResponseEntity.ok(contestService.startContest(contestId));
+	}
+	
+	@RequestMapping(value = "/stop-contest", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<ContestDto> stopContest(@RequestBody Integer contestId) {
+		return ResponseEntity.ok(contestService.stopContest(contestId));
+	}
+	
+	@RequestMapping(value = "/start-round", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<ContestDto> startRound(@RequestBody Integer contestId) {
+		return ResponseEntity.ok(contestService.startRound(contestId));
+	}
+	
+	@RequestMapping(value = "/stop-round", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<ContestDto> stopRound(@RequestBody Integer contestId) {
+		return ResponseEntity.ok(contestService.stopRound(contestId));
+	}
+	
 }

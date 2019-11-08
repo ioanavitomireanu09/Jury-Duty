@@ -15,12 +15,14 @@ import com.mps.juryapp.model.User;
 import com.mps.juryapp.model.UserGroup;
 import com.mps.juryapp.dto.ContestDto;
 import com.mps.juryapp.dto.ContestToGradesDto;
+import com.mps.juryapp.dto.ContestToTeamsDto;
 import com.mps.juryapp.dto.ContestTypeDto;
 import com.mps.juryapp.dto.GradeTypeDto;
 import com.mps.juryapp.dto.UserDto;
 import com.mps.juryapp.dto.UsersInTeamsDto;
 import com.mps.juryapp.model.Contest;
 import com.mps.juryapp.model.ContestToGrades;
+import com.mps.juryapp.model.ContestToTeams;
 import com.mps.juryapp.model.ContestType;
 import com.mps.juryapp.model.GradeType;
 import com.mps.juryapp.model.User;
@@ -142,5 +144,16 @@ public class BuilderDto {
 		usersInTeamsDto.setUserId(usersInTeams.getUserId());
 		
 		return usersInTeamsDto;
+	}
+	
+	public ContestToTeamsDto contestToTeamsToDto(ContestToTeams contestToTeams) {
+		ContestToTeamsDto contestToTeamsDto = new ContestToTeamsDto();
+		
+		contestToTeamsDto.setContest_id(contestToTeams.getContestId());
+		contestToTeamsDto.setId(contestToTeams.getId());
+		contestToTeamsDto.setDisqualified(contestToTeams.getDisqualified());
+		contestToTeamsDto.setTeamId(contestToTeams.getTeamId());
+		
+		return contestToTeamsDto;
 	}
 }
