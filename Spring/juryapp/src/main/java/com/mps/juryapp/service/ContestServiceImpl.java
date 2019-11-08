@@ -1,6 +1,8 @@
 package com.mps.juryapp.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mps.juryapp.dto.ContestDto;
+import com.mps.juryapp.dto.ContestToTeamsDto;
+import com.mps.juryapp.dto.Stats;
 import com.mps.juryapp.model.Contest;
 import com.mps.juryapp.repository.ContestRepository;
+import com.mps.juryapp.repository.ContestToTeamsRepository;
 import com.mps.juryapp.util.BuilderDto;
 
 @Service
@@ -18,6 +23,12 @@ public class ContestServiceImpl implements ContestService {
 
 	@Autowired
 	ContestRepository contestRepository;
+	@Autowired
+	ContestToTeamsService contestToTeamsService;
+	@Autowired
+	ContestToTeamsServiceImpl contestToTeamsServiceImpl;
+	@Autowired
+	ContestToTeamsRepository contestToTeamsRepository;
 	
 	@Autowired
 	BuilderDto builderDto;
@@ -113,6 +124,16 @@ public class ContestServiceImpl implements ContestService {
 		return returnedContest;
 	}
 
+	class GradeComparator implements Comparator<Stats> {
+		
+		@Override
+	    public int compare(Stats a, Stats b) {
+	        if (a.getAverageGrade() > b.getAverageGrade())
+	        	return -1;
+	        return 1;
+	    }
+	}
+	
 	@Override
 	public ContestDto stopRound(Integer contestId) {
 
@@ -130,6 +151,17 @@ public class ContestServiceImpl implements ContestService {
 					returnedContest.setRound_state(0);
 				}
 				try {
+					int elim = contest.getNumOfParticipants() / (contest.getNumOfRounds() - contest.getCurrentRound());
+					if (elim > contest.getNumOfParticipants()) {
+						contest.setCurrentRound(contest.getNumOfRounds());
+					} else {
+						contest.setNumOfParticipants(contest.getNumOfParticipants() - elim);
+						List<Stats> stats = contestToTeamsService.getStats(contestId);
+						//suppose grades are already submitted
+						Collections.sort(stats, new GradeComparator());
+						//TODO: delete
+					}
+					
 					updateContest(contest);
 				} catch (Exception e) {
 					//TODO: nothing again :)
