@@ -102,13 +102,13 @@ public class CoreController {
 		}
 	}
 	
-	@RequestMapping(value = "/add-user-contest", method = RequestMethod.POST, consumes=MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/add-user-contest", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> addUserToContest(@RequestBody UserToContest userToContest) {
 		return ResponseEntity.ok(contestService.addUserToContest(userToContest));
 	}
 	
-	@RequestMapping(value = "/add-user-team", method = RequestMethod.POST, consumes=MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/add-user-team", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<String> addUserToContest(@RequestBody UsersInTeams usersInTeams) {
 		String response = "";

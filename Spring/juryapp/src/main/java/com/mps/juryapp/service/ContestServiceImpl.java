@@ -271,4 +271,10 @@ public class ContestServiceImpl implements ContestService {
 		}
 		return returnedContest;
 	}
+
+	@Override
+	public String updateContest(Contest contest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
