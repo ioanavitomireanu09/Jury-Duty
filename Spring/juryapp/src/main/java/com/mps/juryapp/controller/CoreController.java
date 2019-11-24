@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mps.juryapp.dto.AddUserToContest;
 import com.mps.juryapp.dto.ContestDto;
+import com.mps.juryapp.dto.GradesDto;
 import com.mps.juryapp.dto.ContestToInsert;
 import com.mps.juryapp.dto.Stats;
 import com.mps.juryapp.model.Contest;
+import com.mps.juryapp.model.Grades;
 import com.mps.juryapp.model.JwtRequest;
 import com.mps.juryapp.model.Team;
 import com.mps.juryapp.model.TempUser;
@@ -29,7 +31,9 @@ import com.mps.juryapp.repository.UserGroupRepository;
 import com.mps.juryapp.repository.UsersInTeamsRepository;
 import com.mps.juryapp.service.ContestService;
 import com.mps.juryapp.service.ContestToTeamsService;
+import com.mps.juryapp.service.GradesService;
 import com.mps.juryapp.service.UserService;
+import com.mps.juryapp.service.VoteTeam;
 
 @RestController
 @CrossOrigin
@@ -47,6 +51,8 @@ public class CoreController {
 	ContestService contestService;
 	@Autowired
 	ContestToTeamsService contestToTeamsService;
+	@Autowired
+	GradesService gradesService;
 	
 	@RequestMapping(value = "/user-requests", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -160,6 +166,12 @@ public class CoreController {
 	@ResponseBody
 	public ResponseEntity<ContestDto> stopRound(@RequestBody Integer contestId) {
 		return ResponseEntity.ok(contestService.stopRound(contestId));
+	}
+	
+	@RequestMapping(value = "/set-grades", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<Grades> SetGrades(@RequestBody VoteTeam vote) {
+		return ResponseEntity.ok(gradesService.SetGrades(vote));
 	}
 	
 }
