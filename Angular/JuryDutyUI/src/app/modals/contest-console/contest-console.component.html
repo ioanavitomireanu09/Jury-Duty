@@ -1,3 +1,38 @@
-<mat-grid-list cols="2" [cols]="breakpoint" rowHeight="85px" (window:resize)="onResize($event)">
-  contest-console works!
-</mat-grid-list>
+<div *ngIf="!isContestStart">
+	<i (click)="onExit()" class="material-icons exit">clear</i>
+</div>
+<div>
+	<mat-card-title style="text-align: center;">Cooking Contest 1</mat-card-title>
+</div>
+<button (click)="onStartContest()" mat-raised-button class="contest-button" [disabled]="isContestStart">Start Contest</button>
+<mat-card class="team-info">
+	<mat-card-header>
+		<mat-card-title>Round: {{currentRound}}</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<div style="text-align: center;">
+			<button (click)="onStartRound()" class="round-button-left" mat-raised-button [disabled]="(!isContestStart || isRoundStart) || isRoundEnd">Start Round</button>
+			<countdown #cd1 [config]="{leftTime: 2, demand: true}" (event)="onHandleEvent($event)"></countdown>
+			<button (click)="onEndRound()" class="round-button-right" mat-raised-button [disabled]="!isContestStart || !isRoundEnd">End Round</button>
+		</div>
+		<div style="text-align: center;">
+			<i (click)="cd1.resume()" class="material-icons timer-button">play_circle_outline</i>
+			<i (click)="cd1.pause()" class="material-icons timer-button">pause_circle_outline</i>
+			<i (click)="cd1.restart()" class="material-icons timer-button">replay</i>
+		</div>
+	</mat-card-content>
+</mat-card>
+<mat-card class="team-info">
+	<mat-card-header>
+		<mat-card-title>{{teams[currentTeam].name | uppercase}} Details</mat-card-title>
+		<mat-card-subtitle><span>Place: </span>{{teams[currentTeam].id}}</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<label>Members:</label>
+		<mat-list *ngFor="let member of teams[1].members">
+			<mat-list-item>{{member}}</mat-list-item>
+			<mat-divider></mat-divider>
+		</mat-list>
+	</mat-card-content> 
+</mat-card >
+<button (click)="onEndContest()" mat-raised-button class="contest-button" [disabled]="!isContestDone">End Contest</button>

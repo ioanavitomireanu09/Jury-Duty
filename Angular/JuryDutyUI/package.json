@@ -1,5 +1,5 @@
 {
-  "name": "mat-forty-two",
+  "name": "jury-duty",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -17,7 +17,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s test:single-run format:fix format:check lint:fix lint:check"
     }
   },
   "private": true,
@@ -35,6 +34,7 @@
     "@angular/router": "~8.0.0",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
+    "ngx-countdown": "^8.0.3",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

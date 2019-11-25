@@ -1,0 +1,44 @@
+.team-info {
+    margin-bottom: 10px;
+    box-shadow: 0px -0.5px 2px 2px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.contest-button {
+    width: 100%;
+    background: #18d318a6;
+    color: white;
+    margin: 10px 10px 10px 0px;
+}
+
+.round-button-left {
+    margin-right: 20%;
+    background: #18d318a6;
+    color: white;
+}
+
+.round-button-right {
+    margin-left: 20%;
+    background: #18d318a6;
+    color: white;
+}
+
+.timer-button:hover {
+    cursor: pointer;
+    color: #18d318a6;
+}
+
+.exit {
+    margin-left: 95%;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.exit:hover {
+    cursor: pointer;
+    color: red;
+}
+
+::ng-deep .team-info .mat-card-header .mat-card-header-text {
+    width: 100%;
+    text-align: center;
+}
