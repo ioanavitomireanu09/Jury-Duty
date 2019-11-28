@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
-import { ContestModalComponent, ContestToInsert } from 'src/app/modals/contest-modal/contest-modal.component';
+import { ContestModalComponent } from 'src/app/modals/contest-modal/contest-modal.component';
 import { ContestConsoleComponent } from 'src/app/modals/contest-console/contest-console.component'
+import { ContestToInsert } from 'src/app/core/entities/ContestToInsert';
 export class Team {
 	id: number;
 	name: string;

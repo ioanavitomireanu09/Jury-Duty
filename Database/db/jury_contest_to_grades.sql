@@ -29,7 +29,7 @@ CREATE TABLE `contest_to_grades` (
   `grade_weight` int(11) NOT NULL,
   PRIMARY KEY (`contest_id`,`grade_type_id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='table that contains all the grade types and the correspondent weights for contests.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='table that contains all the grade types and the correspondent weights for contests.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

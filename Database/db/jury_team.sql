@@ -29,7 +29,7 @@ CREATE TABLE `team` (
   `num_of_participants` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='list of teams';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='list of teams';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

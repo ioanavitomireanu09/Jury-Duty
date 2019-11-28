@@ -28,7 +28,7 @@ CREATE TABLE `tie_breaker_type` (
   `description` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='tie-breaker type, given at the start of every contest by the organiser.';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='tie-breaker type, given at the start of every contest by the organiser.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
