@@ -27,10 +27,10 @@ export class LoginPageComponent implements OnInit {
 
     public async login(username: string, password: string) {
         try {
-            const url = (await this.authService.mockLogin(
+            const url = await this.authService.login(
                 username,
                 password,
-            )) as string;
+                );
             this.navigateTo(url);
         } catch (e) {
             this.errorMessage = 'Wrong Credentials!';
@@ -39,7 +39,19 @@ export class LoginPageComponent implements OnInit {
     }
 
     public async register(firstName: string, lastName: string, group: string, username: string, password: string) {
-
+        try {
+            const url = await this.authService.register(
+                firstName,
+                lastName,
+                group,
+                username,
+                password
+                );
+            this.navigateTo(url);
+        } catch (e) {
+            this.errorMessage = 'Wrong Credentials!';
+            console.error('Unable to Login!\n', e);
+        }
     }
 
     public navigateTo(url?: string) {

@@ -4,6 +4,7 @@
 
 export const environment = {
     production: false,
+    authenticateUrl: "http://localhost:8080/authenticate"
 };
 
 /*
