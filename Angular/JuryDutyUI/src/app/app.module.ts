@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpConfigInterceptor } from './core/services/http/interceptor.service';
 import { ContestModalComponent } from './modals/contest-modal/contest-modal.component';
 import { ContestConsoleComponent } from './modals/contest-console/contest-console.component';
+import { ContestVoteComponent } from './modals/contest-vote/contest-vote.component';
 import { DeleteComponent } from './modals/delete/delete.component';
 import { CountdownModule } from 'ngx-countdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -48,12 +49,8 @@ import {
     MAT_DIALOG_DATA,
   } from '@angular/material';
 
-
-
-
-
 @NgModule({
-    declarations: [AppComponent, ContestModalComponent, DeleteComponent, ContestConsoleComponent],
+    declarations: [AppComponent, ContestModalComponent, DeleteComponent, ContestConsoleComponent, ContestVoteComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -115,7 +112,8 @@ import {
     entryComponents: [
         ContestModalComponent,
         DeleteComponent,
-        ContestConsoleComponent
+        ContestConsoleComponent,
+        ContestVoteComponent
     ]
 })
 export class AppModule {}

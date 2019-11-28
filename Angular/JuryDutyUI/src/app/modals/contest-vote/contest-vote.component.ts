@@ -3,13 +3,14 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { CountdownComponent } from 'ngx-countdown';
 import { Contest } from 'src/app/pages/generaldash/generaldash.component';
 
+
 @Component({
-	selector: 'app-contest-console',
-	templateUrl: './contest-console.component.html',
-	styleUrls: ['./contest-console.component.scss']
+  selector: 'app-contest-vote',
+  templateUrl: './contest-vote.component.html',
+  styleUrls: ['./contest-vote.component.scss']
 })
-export class ContestConsoleComponent implements OnInit {
-	@ViewChild('cd1', { static: false }) private countdown: CountdownComponent; 
+export class ContestVoteComponent implements OnInit {
+  @ViewChild('cd1', { static: false }) private countdown: CountdownComponent; 
 	public contest: Contest;
 	public breakpoint: number;
 	public numRounds: number;
@@ -23,7 +24,7 @@ export class ContestConsoleComponent implements OnInit {
 
 	constructor (
 	public dialog: MatDialog,
-	private dialogRef: MatDialogRef<ContestConsoleComponent>,
+	private dialogRef: MatDialogRef<ContestVoteComponent>,
 	@Inject(MAT_DIALOG_DATA) contest: Contest ) {
 
 	this.contest = contest;
@@ -47,29 +48,14 @@ export class ContestConsoleComponent implements OnInit {
 	// tslint:disable-next-line:no-any
 	public onResize(event: any): void {
 		this.breakpoint = event.target.innerWidth <= 600 ? 1 : 2;
-	}
+  }
+  
+  onSubmitVote() {
+    
+  }
 
 	close() {
 		this.dialogRef.close();
-	}
-
-	onStartContest() {
-		this.isContestStart = true;
-	}
-
-	onEndContest() {
-		this.dialogRef.close();
-	}
-
-	onStartRound() {
-		this.countdown.restart();
-		this.countdown.begin();
-		this.isRoundStart = true;
-	}
-
-	onEndRound() {
-		this.currentRound++;
-		this.isRoundEnd = false;
 	}
 
 	onHandleEvent(event) {

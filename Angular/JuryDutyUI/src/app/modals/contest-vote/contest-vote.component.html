@@ -1,0 +1,42 @@
+<div *ngIf="!isContestStart">
+	<i (click)="onExit()" class="material-icons exit">clear</i>
+</div>
+<div>
+	<mat-card-title style="text-align: center;">Cooking Contest 1</mat-card-title>
+</div>
+
+<mat-card class="team-info">
+	<mat-card-header>
+		<mat-card-title>Round: {{currentRound}}</mat-card-title>
+  </mat-card-header>
+  
+	<mat-card-content>
+		<div style="text-align: center;">
+			<countdown #cd1 [config]="{leftTime: 2, demand: true}" (event)="onHandleEvent($event)"></countdown>
+    </div>
+    
+		<div style="text-align: center;">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Voteaza 0 - 10">
+        </mat-form-field>
+      </form>
+
+      <button (click)="onSubmitVote()" class="round-button-right" mat-raised-button [disabled]="!isContestStart || !isRoundStart || isRoundEnd">Submit vote</button>
+		</div>
+	</mat-card-content>
+</mat-card>
+
+<mat-card class="team-info">
+	<mat-card-header>
+		<mat-card-title>{{teams[currentTeam].name | uppercase}} Details</mat-card-title>
+		<mat-card-subtitle><span>Place: </span>{{teams[currentTeam].id}}</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<label>Members:</label>
+		<mat-list *ngFor="let member of teams[1].members">
+			<mat-list-item>{{member}}</mat-list-item>
+			<mat-divider></mat-divider>
+		</mat-list>
+	</mat-card-content> 
+</mat-card >

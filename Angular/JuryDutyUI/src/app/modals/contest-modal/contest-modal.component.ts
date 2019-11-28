@@ -2,27 +2,9 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DeleteComponent } from '../delete/delete.component';
+import { ContestToInsert } from 'src/app/core/entities/ContestToInsert';
+import { GradeWeight } from 'src/app/core/entities/GradeWeight';
 
-export class GradeWeight {
-  gradeWeight: number;
-  gradeType: string;
-
-  constructor(gradeType?: string, gradeWeight?: number) {
-    this.gradeType = gradeType;
-    this.gradeWeight = gradeWeight;
-  }
-}
-
-export class ContestToInsert {
-  name: string;
-  contestTypeId: number;
-  isPrivate: number;
-  tieBreakId: number;
-  numOfJurys: number;
-  password: string;
-  numOfRounds: number;
-  gradeWeightList: GradeWeight[];
-}
 
 @Component({
   selector: 'app-contest-modal',
