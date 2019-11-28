@@ -12,8 +12,9 @@ const { AUTH_TOKEN } = StorageKey;
     providedIn: 'root',
 })
 export class AuthService extends CrudService {
-    endpoint = 'auth';
-    token: string;
+    endpoint: string;
+    token;
+    status;
     redirectUrl: string;
 
     constructor(http: HttpClient, private storage: StorageService) {
@@ -21,9 +22,10 @@ export class AuthService extends CrudService {
         this.token = this.storage.read(AUTH_TOKEN) || '';
     }
 
-    public async login(email: string, password: string) {
+    public async login(username: string, password: string) {
+        this.endpoint ='authenticate';
         try {
-            this.token = await this.post({ email, password });
+            this.token = await this.post({ username, password });
             this.storage.save(AUTH_TOKEN, this.token);
             return this.redirectUrl;
         } catch (error) {
@@ -31,19 +33,16 @@ export class AuthService extends CrudService {
             return Promise.reject(error);
         }
     }
-
-    public async mockLogin(username: string, password: string) {
+    public async register(firstName: string, lastName: string, groupId: string, username: string, password: string) {
+        this.logout();
+        this.endpoint ='register';
         try {
-            if (!(username === 'user' && password === 'user')) {
-                throw new Error(
-                    'When using mockLogin, login with credentials: \nemail: user\npassword:user',
-                );
-            }
-            this.token = 'user';
-            this.storage.save(StorageKey.AUTH_TOKEN, this.token);
-            return this.redirectUrl;
-        } catch (e) {
-            return Promise.reject(e.message);
+            this.status = await this.post({ firstName, lastName, groupId, username, password});
+            
+            return "login";
+        } catch (error) {
+            console.error('Error during login request', error);
+            return Promise.reject(error);
         }
     }
 
@@ -57,6 +56,10 @@ export class AuthService extends CrudService {
     }
 
     public isLogged(): boolean {
-        return this.token.length > 0;
+        if (typeof this.token.token == 'undefined' || this.token.token == null) {
+            return false;
+        } else {
+            return this.token.token.length > 0;
+        }
     }
 }
