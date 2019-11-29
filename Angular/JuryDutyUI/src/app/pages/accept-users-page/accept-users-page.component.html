@@ -1,67 +1,55 @@
-<mat-accordion>
-  <div *ngFor="let item of contestList; let i = index">
-    <mat-expansion-panel
-                         (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{item.name}}
-        </mat-panel-title>
-        <mat-panel-description>
-          Currently I am {{panelOpenState ? 'open' : 'closed'}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="button-group">
-        <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-            <mat-button-toggle (click)="onContestConsole()" value="bold">Contest Console
-                <i class="material-icons">
-                    web
-                </i>
-            </mat-button-toggle>
-            <mat-button-toggle value="bold">Edit Contest
-                <i class="material-icons">
-                    edit
-                </i>
-            </mat-button-toggle>
-            <mat-button-toggle value="bold">Delete Contest
-                <i class="material-icons">
-                    delete_forever
-                </i>
+<!-- <mat-accordion>
+  <div *ngFor="let item of tempUsersList">
+    <div class="user-accept">
+      <mat-expansion-panel 
+                           (opened)="true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{item.firstName}} {{item.lastName}} 
+          </mat-panel-title>
+          <mat-panel-description>
+            {{item.groupId}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="button-group">
+          <mat-button-toggle-group style="margin-bottom: 15px;" name="fontStyle" aria-label="Font Style">
+              <mat-button-toggle value="bold">Accept
+                  <i class="material-icons">
+                      edit
+                  </i>
               </mat-button-toggle>
-          </mat-button-toggle-group>
-      </div>
-      <div class="contests">
-          <mat-toolbar color="primary">
-              <span class="title-center">Ranking</span>
-          </mat-toolbar>
-        <ul>
-          <li *ngFor="let team of sort(item.stats.teams, {property: 'id', descending: true})"
-            [class.selected]="team === selectedTeam"
-            (click)="onSelect(team)">
-            <span class="badge">{{team.id}}</span> {{team.name}}
-          </li>
-        </ul>
-      </div>
-      
-      <mat-card class="team-info" *ngIf="selectedTeam">
-          <mat-card-header>
-            <mat-card-title>{{selectedTeam.name | uppercase}} Details</mat-card-title>
-            <mat-card-subtitle><span>Place: </span>{{selectedTeam.id}}</mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <label>Members:
-              
-            </label>
-            <mat-list *ngFor="let member of selectedTeam.members">
-                <mat-list-item>{{member}}</mat-list-item>
-                <mat-divider></mat-divider>
-            </mat-list>
-          </mat-card-content>
-          <mat-card-actions>
-              <button mat-flat-button color="primary">Remove Team</button>
-          </mat-card-actions>
-        </mat-card>
-        
-    </mat-expansion-panel>
+              <mat-button-toggle value="bold">Decline
+                  <i class="material-icons">
+                      delete_forever
+                  </i>
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+      </mat-expansion-panel>
+    </div>
   </div>
-</mat-accordion>
+</mat-accordion> -->
+
+<mat-card *ngFor="let item of tempUsersList" class="team-info">
+    <mat-card-header>
+      <mat-card-title>{{item.firstName}} {{item.lastName}} </mat-card-title>
+      <mat-card-subtitle><span>Group: </span> {{item.groupId}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+        <div class="button-group">
+            <mat-button-toggle-group style="margin-bottom: 15px;" name="fontStyle" aria-label="Font Style">
+                <mat-button-toggle (click)="onAcceptUser(item)" value="bold">Accept
+                    <i class="material-icons">
+                        add
+                    </i>
+                </mat-button-toggle>
+                <mat-button-toggle (click)="onDeclineUser(item)" value="bold">Decline
+                    <i class="material-icons">
+                        not_interested
+                    </i>
+                  </mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+    </mat-card-actions>
+  </mat-card>

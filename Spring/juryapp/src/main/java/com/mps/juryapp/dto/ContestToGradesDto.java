@@ -4,7 +4,7 @@ public class ContestToGradesDto {
 
 	private Integer id;
 	private Integer contest_id;
-	private Integer grade_type_id;
+	private String grade_type_id;
 	private Integer grade_weight;
 	public Integer getId() {
 		return id;
@@ -18,10 +18,10 @@ public class ContestToGradesDto {
 	public void setContest_id(Integer contest_id) {
 		this.contest_id = contest_id;
 	}
-	public Integer getGrade_type_id() {
+	public String getGrade_type_id() {
 		return grade_type_id;
 	}
-	public void setGrade_type_id(Integer grade_type_id) {
+	public void setGrade_type_id(String grade_type_id) {
 		this.grade_type_id = grade_type_id;
 	}
 	public Integer getGrade_weight() {
@@ -30,7 +30,7 @@ public class ContestToGradesDto {
 	public void setGrade_weight(Integer grade_weight) {
 		this.grade_weight = grade_weight;
 	}
-	public ContestToGradesDto(Integer id, Integer contest_id, Integer grade_type_id, Integer grade_weight) {
+	public ContestToGradesDto(Integer id, Integer contest_id, String grade_type_id, Integer grade_weight) {
 		super();
 		this.id = id;
 		this.contest_id = contest_id;

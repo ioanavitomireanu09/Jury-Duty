@@ -1,23 +1,33 @@
 import { Injectable } from '@angular/core';
-import { CrudService } from '../http/crud.service';
-import { StorageKey } from '../storage/storage.model';
-import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
-import { User } from '../../entities/User';
-import { Contest } from '../../entities/Contest';
-const { USER_DATA } = StorageKey;
+import { HttpClient } from '@angular/common/http';
+import { CrudService } from '../http/crud.service';
+import { ContestToInsert } from '../../entities/ContestToInsert';
+import { Contest } from 'src/app/pages/generaldash/generaldash.component';
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root'
 })
 export class ContestService extends CrudService {
 	endpoint = '';
 	response: any;
-	userData: User;
+
 
 	constructor(http: HttpClient, private storage: StorageService) {
 		super(http);
-		this.userData = storage.read(USER_DATA) || null;
+	}
+
+	public async saveEditContest(contest: ContestToInsert) {
+		this.endpoint = 'create-contest';
+		
+
+		try {
+			this.response = await this.post(contest, "text");
+			return this.response;
+        } catch (error) {
+            console.error('Error during accepting user account', error);
+            return Promise.reject(error);
+        }
 	}
 
 	public getContests(username?: string): Contest[] {
@@ -37,4 +47,5 @@ export class ContestService extends CrudService {
             return null;
         }
 	}
+
 }

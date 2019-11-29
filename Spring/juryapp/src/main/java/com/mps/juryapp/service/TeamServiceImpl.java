@@ -38,4 +38,14 @@ public class TeamServiceImpl implements TeamService {
 		return teamsDtoList;
 	}
 	
+	public String createTeam(Team team) {
+		try {
+			this.teamRepository.save(team);
+			return "SUCCESS";
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "ERROR";
+		}
+	}
+	
 }

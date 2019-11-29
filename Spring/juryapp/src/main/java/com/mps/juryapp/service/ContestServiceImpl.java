@@ -74,6 +74,7 @@ public class ContestServiceImpl implements ContestService {
 		contest.setRoundState(0);
 		contest.setTieBreakerId(1);
 		contest.setNumOfParticipants(0);
+		contest.setOrgUsername(contestToInsert.getOrgUsername());
 		
 		try {
 			contestRepository.save(contest);

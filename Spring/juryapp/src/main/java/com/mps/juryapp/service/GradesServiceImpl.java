@@ -55,7 +55,7 @@ public class GradesServiceImpl implements GradesService {
 		
 		for (GradeType grade : gradeType) {
 			for (ContestToGrades contest: contestToGradesList) {
-				if(contest.getGradeTypeId() == grade.getId()) {
+				if(contest.getGradeTypeId().equals(grade.getName())) {
 					weight += contest.getGradeWeight();
 					weightList.add(contest.getGradeWeight());
 				}
