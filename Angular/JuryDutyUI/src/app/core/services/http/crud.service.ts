@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 export abstract class CrudService<T = any> {
     abstract endpoint;
-    url = 'http://localhost:8080';
+    url = "http://localhost:8081";
 
     protected constructor(protected http: HttpClient) {}
 
@@ -11,7 +11,7 @@ export abstract class CrudService<T = any> {
         try {
             if(request) {
                 response = await this.http
-                    .get<G>(`${this.url}/${this.endpoint}/${request}`)
+                    .get<G>(`${this.url}/${this.endpoint}?${request}`)
                     .toPromise();
             }
             else {

@@ -26,7 +26,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                 withCredentials: false,
             });
         }
-
+        
         return next.handle(req);
     }
 }

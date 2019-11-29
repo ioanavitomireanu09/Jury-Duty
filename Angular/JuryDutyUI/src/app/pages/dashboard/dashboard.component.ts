@@ -6,6 +6,7 @@ import { ContestToInsert } from 'src/app/core/entities/ContestToInsert';
 import { ContestService } from 'src/app/core/services/api/contest.service';
 import { StorageKey } from 'src/app/core/services/storage/storage.model';
 import { StorageService } from 'src/app/core/services/storage/storage.service';
+import { UserService } from 'src/app/core/services/api/user.service';
 const { USER_DATA } = StorageKey;
 
 export class Team {
@@ -46,7 +47,7 @@ export class DashboardComponent implements OnInit {
 	selectedTeam: Team;
 	public contestToInsert = null;
 
-	constructor(public dialog: MatDialog, private contestService: ContestService, private storage: StorageService) { }
+	constructor(public dialog: MatDialog, private contestService: ContestService, private storage: StorageService, private userService: UserService) { }
 
 	ngOnInit() {
 		const stats = new StatsContest();
@@ -66,7 +67,10 @@ export class DashboardComponent implements OnInit {
 			contest.stats = stats;
 			this.contestList.push(contest);
 		}
-		console.log(this.contestList);
+	}
+
+	getGroups(): void {
+		this.userService.getUserGroups();
 	}
 
 	onSelect(team: Team): void {

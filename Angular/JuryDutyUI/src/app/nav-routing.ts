@@ -43,10 +43,26 @@ export const navRoutes: NavRoute[] = [
         redirectTo: 'general',
         pathMatch: 'full',
     },
-{data: {title: 'AcceptUsers'},icon: 'menu',group: '',path: 'accept-users',loadChildren: () =>
-                import('./pages/accept-users-page/accept-users-page.module').then(
-                    m => m.AcceptUsersPageModule,
-                ),},];
+    {
+        data: {title: 'AcceptUsers'},
+        icon: 'menu',
+        group: '',
+        path: 'accept-users',
+        loadChildren: () =>
+            import('./pages/accept-users-page/accept-users-page.module').then(
+                m => m.AcceptUsersPageModule,
+            ),
+    },
+    {
+        data: {title: 'JuryBoard'},
+        icon: 'work',
+        path: 'app-jurydash',
+        loadChildren: () =>
+            import('./pages/jurydash/jurydash.module').then(
+                m => m.JurydashModule,
+            ),
+    },
+];
 
 @Injectable({
     providedIn: 'root',

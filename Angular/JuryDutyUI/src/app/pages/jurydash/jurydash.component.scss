@@ -1,0 +1,84 @@
+.mat-expansion-panel {
+    margin: 10px 20px 10px 20px;
+}
+::ng-deep .mat-expansion-panel .mat-expansion-panel-body {
+    height: 85vh;
+    overflow-y: scroll;
+
+}
+.button-group {
+    margin: 10px 20px 10px 20px;
+}
+
+.title-center {
+    flex: 1 1 auto;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.team-info {
+    width: 92%;
+    margin: auto 61px;
+    margin-bottom: 10px;
+}
+
+::ng-deep .mat-expansion-panel-body .mat-card {
+    box-shadow: 0px -0.5px 2px 2px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+::ng-deep .contests .mat-toolbar.mat-primary {
+    border-radius: 12px;
+}
+::ng-deep .mat-card .mat-card-content .mat-divider-horizontal {
+    position: relative;
+}
+::ng-deep .mat-card .mat-card-content label {
+    font-size: 17px;
+}
+/* HeroesComponent's private CSS styles */
+.contests {
+    margin: auto;
+    width: 98%;
+    list-style-type: none;
+    padding: 0;
+  }
+  .contests ul {
+    list-style-type: none;
+  }
+  .contests li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color:#d54a4a2e;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+  }
+  .contests li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em;
+  }
+  .contests li.selected {
+    background-color: #CFD8DC;
+    color: white;
+  }
+  .contests li.selected:hover {
+    background-color: #BBD8DC;
+    color: white;
+  }
+  .contests .badge {
+    display: inline-block;
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color:#f44336;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -5px;
+    height: 1.8em;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+  }
