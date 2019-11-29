@@ -15,11 +15,12 @@ export class UserService extends CrudService {
 	userData: User;
 	constructor(http: HttpClient, private storage: StorageService) {
 		super(http);
-		this.userData = storage.read(USER_DATA) || null;
+		this.userData = storage.read(USER_DATA) || null
 	}
 
 	public async getUserRequests() {
 		this.endpoint = 'user-requests';
+
 		try {
 			this.response = await this.get();
 			return this.response;
@@ -29,11 +30,11 @@ export class UserService extends CrudService {
         }
 	}
 
-	public async acceptUser(user: User) {
+	public async acceptUser(usrname: string) {
 		this.endpoint = 'accept-user';
 
 		try {
-			this.response = await this.post(user.username);
+			this.response = await this.post(usrname, "text");
 			return this.response;
         } catch (error) {
             console.error('Error during accepting user account', error);
@@ -41,11 +42,11 @@ export class UserService extends CrudService {
         }
 	}
 
-	public async declineUser(user: User) {
+	public async declineUser(usrname: string) {
 		this.endpoint = 'decline-user';
 
 		try {
-			this.response = await this.post(user.username);
+			this.response = await this.post(usrname, "text");
 			return this.response;
         } catch (error) {
             console.error('Error during declining user account', error);
