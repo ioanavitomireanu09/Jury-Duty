@@ -137,6 +137,7 @@ public class CoreController {
 //			return ResponseEntity.ok(contestService.getContests(username));	
 //		}
 //	}
+	
 	@RequestMapping(value = "/get-stats", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<List<Stats>> getTeamsStats(@RequestBody Integer idContests) {

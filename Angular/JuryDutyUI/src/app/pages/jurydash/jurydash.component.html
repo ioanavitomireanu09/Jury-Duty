@@ -1,3 +1,46 @@
-<p>
-  jurydash works!
-</p>
+<mat-accordion>
+  <div *ngFor="let item of contestList; let i = index">
+    <mat-expansion-panel
+                         (opened)="panelOpenState = true; onSelectContest(item)"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{item.name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Currently I am {{panelOpenState ? 'open' : 'closed'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="contests">
+          <mat-toolbar color="primary">
+              <span class="title-center">Ranking</span>
+          </mat-toolbar>
+        <ul>
+          <li *ngFor="let team of teamList"
+            [class.selected]="team === selectedTeam"
+            (click)="onSelectTeam(team)">
+            <span class="badge">{{team.id}}</span> {{team.name}}
+          </li>
+        </ul>
+      </div>
+      
+      <mat-card class="team-info" *ngIf="selectedTeam">
+          <mat-card-header>
+            <mat-card-title>{{selectedTeam.name | uppercase}} Details</mat-card-title>
+            <mat-card-subtitle><span>Place: </span>{{selectedTeam.id}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <label>Members:
+              
+            </label>
+            <mat-list *ngFor="let member of memberList">
+                <mat-list-item>{{member.firstName + ' ' + member.lastName}}</mat-list-item>
+                <mat-divider></mat-divider>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+        
+    </mat-expansion-panel>
+  </div>
+</mat-accordion>

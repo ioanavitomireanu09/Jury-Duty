@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angu
 import { ContestModalComponent } from 'src/app/modals/contest-modal/contest-modal.component';
 import { ContestConsoleComponent } from 'src/app/modals/contest-console/contest-console.component'
 import { ContestToInsert } from 'src/app/core/entities/ContestToInsert';
+import { UserService } from 'src/app/core/services/api/user.service';
 export class Team {
 	id: number;
 	name: string;
@@ -41,7 +42,7 @@ export class DashboardComponent implements OnInit {
 	selectedTeam: Team;
 	public contestToInsert = null;
 
-	constructor(public dialog: MatDialog) { }
+	constructor(public dialog: MatDialog, public userService: UserService) { }
 
 	ngOnInit() {
 		const stats = new StatsContest();
@@ -61,7 +62,10 @@ export class DashboardComponent implements OnInit {
 			contest.stats = stats;
 			this.contestList.push(contest);
 		}
-		console.log(this.contestList);
+	}
+
+	getGroups(): void {
+		this.userService.getUserGroups();
 	}
 
 	onSelect(team: Team): void {

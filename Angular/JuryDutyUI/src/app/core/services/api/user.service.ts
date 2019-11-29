@@ -53,7 +53,7 @@ export class UserService extends CrudService {
         }
 	}
 
-	public async getUserGroups(user: User) {
+	public async getUserGroups() {
 		this.endpoint = 'user-groups';
 
 		try {
