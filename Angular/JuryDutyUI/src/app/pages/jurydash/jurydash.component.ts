@@ -25,7 +25,7 @@ export class JurydashComponent implements OnInit {
   constructor(private contestService: ContestService,
               private teamService: TeamService,
               private storage: StorageService) {
-    this.userData = this.storage.read(USER_DATA) || null;
+    this.userData = this.storage.read(USER_DATA).userDetails || null;
   }
 
   ngOnInit() {
