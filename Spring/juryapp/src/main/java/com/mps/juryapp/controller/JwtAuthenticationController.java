@@ -1,5 +1,6 @@
 package com.mps.juryapp.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +21,7 @@ import com.mps.juryapp.model.JwtResponse;
 import com.mps.juryapp.model.User;
 import com.mps.juryapp.repository.UserRepository;
 import com.mps.juryapp.service.JwtUserDetailsService;
+
 
 @RestController
 @CrossOrigin
@@ -50,8 +52,8 @@ public class JwtAuthenticationController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody UserDto user) throws Exception {
-		return ResponseEntity.ok(userDetailsService.save(user));
+	public ResponseEntity<String> saveUser(@RequestBody UserDto user) throws Exception {
+		return ResponseEntity.ok((userDetailsService.save(user)));
 	}
 
 	private void authenticate(String username, String password) throws Exception {

@@ -4,8 +4,7 @@ import { StorageKey } from '../storage/storage.model';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
 import { User } from '../../entities/User';
-
-const { AUTH_TOKEN } = StorageKey;
+const { USER_DATA } = StorageKey;
 
 @Injectable({
 	providedIn: 'root'
@@ -13,14 +12,14 @@ const { AUTH_TOKEN } = StorageKey;
 export class UserService extends CrudService {
 	endpoint = '';
 	response: string;
-
+	userData: User;
 	constructor(http: HttpClient, private storage: StorageService) {
 		super(http);
+		this.userData = storage.read(USER_DATA) || null;
 	}
 
-	public async getUserRequests(user: User) {
+	public async getUserRequests() {
 		this.endpoint = 'user-requests';
-
 		try {
 			this.response = await this.get();
 			return this.response;

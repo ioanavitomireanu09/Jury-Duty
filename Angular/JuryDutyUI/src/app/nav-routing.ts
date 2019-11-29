@@ -43,7 +43,10 @@ export const navRoutes: NavRoute[] = [
         redirectTo: 'general',
         pathMatch: 'full',
     },
-];
+{data: {title: 'AcceptUsers'},icon: 'menu',group: '',path: 'accept-users',loadChildren: () =>
+                import('./pages/accept-users-page/accept-users-page.module').then(
+                    m => m.AcceptUsersPageModule,
+                ),},];
 
 @Injectable({
     providedIn: 'root',

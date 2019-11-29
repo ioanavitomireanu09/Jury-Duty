@@ -52,6 +52,7 @@
                                         <input matInput placeholder="Password" name="password" [(ngModel)]="password" type="password" autocomplete="current-password"/>
                                     </mat-form-field>
                                 </form>
+                                <span style="color: greenyellow;" *ngIf="successMessage"> {{successMessage}} </span>
                                 <mat-error [textContent]="errorMessage"></mat-error>
                             </mat-card-content>
                             <mat-card-actions>

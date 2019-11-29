@@ -37,10 +37,10 @@ export class ContestConsoleComponent implements OnInit {
 		this.isContestDone = false;
 		this.isRoundStart  = false;
 		this.isRoundEnd = false;
-		this.teams = [{id:1, name:"Team1", members: ["Member 1", "Member 2", "Member 3"]}, 
-						{id:5, name:"Team2", members: ["Member 1", "Member 2", "Member 3"]},
-						{id:3, name:"Team3", members: ["Member 1", "Member 2", "Member 3"]}, 
-						{id:9, name:"Team4", members: ["Member 1", "Member 2", "Member 3"]}
+		this.teams = [{id:1, name:'Team1', members: ['Member 1', 'Member 2', 'Member 3']}, 
+						{id:5, name:'Team2', members: ['Member 1', 'Member 2', 'Member 3']},
+						{id:3, name:'Team3', members: ['Member 1', 'Member 2', 'Member 3']}, 
+						{id:9, name:'Team4', members: ['Member 1', 'Member 2', 'Member 3']}
 					]
 		}
 

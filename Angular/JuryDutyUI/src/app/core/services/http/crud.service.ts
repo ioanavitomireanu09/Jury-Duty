@@ -2,21 +2,23 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 export abstract class CrudService<T = any> {
     abstract endpoint;
-    url = "http://localhost:8080";
+    url = 'http://localhost:8080';
 
     protected constructor(protected http: HttpClient) {}
 
     public async get<G>(request?: string): Promise<G | null> {
         let response = null;
         try {
-            if(request)
+            if(request) {
                 response = await this.http
                     .get<G>(`${this.url}/${this.endpoint}/${request}`)
                     .toPromise();
-            else
+            }
+            else {
                 response = await this.http
                     .get<G>(`${this.url}/${this.endpoint}`)
                     .toPromise();
+            }
         } catch (error) {
             response = this.errorHandler('GET', error);
         }
@@ -31,12 +33,19 @@ export abstract class CrudService<T = any> {
         return this.get<T>('' + id);
     }
 
-    public async post(body): Promise<any> {
+    public async post(body,resType?:string): Promise<any> {
         let response = null;
         try {
-            response = await this.http
+            if (resType) {
+                response = await this.http
+                .post(`${this.url}/${this.endpoint}`, body, { responseType: 'text'})
+                .toPromise();
+            } else {
+                response = await this.http
                 .post(`${this.url}/${this.endpoint}`, body)
                 .toPromise();
+            }
+           
         } catch (error) {
             response = this.errorHandler('POST', error);
         }

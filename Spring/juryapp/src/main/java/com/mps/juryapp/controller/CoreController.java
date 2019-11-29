@@ -36,7 +36,7 @@ import com.mps.juryapp.service.UserService;
 import com.mps.juryapp.service.VoteTeam;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class CoreController {
 	@Autowired
 	TempUserRepository tempUserRepository;

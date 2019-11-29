@@ -45,19 +45,19 @@ export class GeneraldashComponent implements OnInit {
     constructor() { }
     
     ngOnInit() {
-      var stats = new StatsContest();
-      stats.teams = [{id:1, name:"Team1", members: ["Member 1", "Member 2", "Member 3"]}, 
-                    {id:5, name:"Team2", members: ["Member 1", "Member 2", "Member 3"]},
-                    {id:3, name:"Team3", members: ["Member 1", "Member 2", "Member 3"]}, 
-                    {id:9, name:"Team4", members: ["Member 1", "Member 2", "Member 3"]},
-                    {id:1, name:"Team1", members: ["Member 1", "Member 2", "Member 3"]}, 
-                    {id:5, name:"Team2", members: ["Member 1", "Member 2", "Member 3"]},
-                    {id:3, name:"Team3", members: ["Member 1", "Member 2", "Member 3"]}, 
-                    {id:9, name:"Team4", members: ["Member 1", "Member 2", "Member 3"]}
+      const stats = new StatsContest();
+      stats.teams = [{id:1, name:'Team1', members: ['Member 1', 'Member 2', 'Member 3']}, 
+                    {id:5, name:'Team2', members: ['Member 1', 'Member 2', 'Member 3']},
+                    {id:3, name:'Team3', members: ['Member 1', 'Member 2', 'Member 3']}, 
+                    {id:9, name:'Team4', members: ['Member 1', 'Member 2', 'Member 3']},
+                    {id:1, name:'Team1', members: ['Member 1', 'Member 2', 'Member 3']}, 
+                    {id:5, name:'Team2', members: ['Member 1', 'Member 2', 'Member 3']},
+                    {id:3, name:'Team3', members: ['Member 1', 'Member 2', 'Member 3']}, 
+                    {id:9, name:'Team4', members: ['Member 1', 'Member 2', 'Member 3']}
                     ]
       for(let i = 0; i < 10; i++) {
-        let contest = new Contest();
-        contest.name = "Contest " + i;
+        const contest = new Contest();
+        contest.name = 'Contest ' + i;
         contest.state = i % 2;
         contest.stats = stats;
         this.contestList.push(contest);
@@ -70,16 +70,17 @@ export class GeneraldashComponent implements OnInit {
     }
 
     sort(value: any[], criteria: SortCriteria): any[] {
-      if (!value || !criteria)
+      if (!value || !criteria) {
         return value;
+      }
 
-      let p: string = criteria.property;
+      const p: string = criteria.property;
 
-      let sortFn:(a: any, b: any) => any = (a, b) => {
-        let value: number = 0;
-        if (a[p] === undefined) value = -1;
-        else if (b[p] === undefined) value = 1;
-        else value = a[p] > b[p] ? 1 : (b[p] > a[p] ? -1 : 0);
+      const sortFn:(a: any, b: any) => any = (a, b) => {
+        let value = 0;
+        if (a[p] === undefined) { value = -1; }
+        else if (b[p] === undefined) { value = 1; }
+        else { value = a[p] > b[p] ? 1 : (b[p] > a[p] ? -1 : 0); }
         return criteria.descending ? (value * -1) : value;
       };
 

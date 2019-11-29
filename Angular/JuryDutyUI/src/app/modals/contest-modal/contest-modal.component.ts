@@ -39,7 +39,7 @@ export class ContestModalComponent implements OnInit {
       value: 'Weight'
     }
   ]
-  public gradeTypeList = ["Sound", "Stile"];
+  public gradeTypeList = ['Sound', 'Stile'];
 
 
   constructor (

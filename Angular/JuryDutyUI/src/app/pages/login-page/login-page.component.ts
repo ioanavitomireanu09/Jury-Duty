@@ -13,6 +13,7 @@ export class LoginPageComponent implements OnInit {
     group: string;
     username: string;
     password: string;
+    successMessage: string;
     errorMessage: string;
     showLogin:true;
 
@@ -40,14 +41,24 @@ export class LoginPageComponent implements OnInit {
 
     public async register(firstName: string, lastName: string, group: string, username: string, password: string) {
         try {
-            const url = await this.authService.register(
+            const status = await this.authService.register(
                 firstName,
                 lastName,
                 group,
                 username,
                 password
                 );
-            this.navigateTo(url);
+            switch (status) {
+                case 'SAVE':
+                case 'WAIT':
+                    this.successMessage = status
+                    break;
+                case 'EXIT':
+                    this.errorMessage = 'The user already exists'
+                    
+                default:
+                    break;
+            }
         } catch (e) {
             this.errorMessage = 'Wrong Credentials!';
             console.error('Unable to Login!\n', e);
