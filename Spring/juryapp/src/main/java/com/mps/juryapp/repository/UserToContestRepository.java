@@ -11,4 +11,5 @@ import com.mps.juryapp.model.UserToContest;
 public interface UserToContestRepository extends JpaRepository<UserToContest, Integer> {
 	
 	public List<UserToContest> findByUsername(String username);
+	public List<UserToContest> findByContestId(Integer contestId);
 }

@@ -30,18 +30,19 @@ export class ContestService extends CrudService {
         }
 	}
 
-	public getContests(username?: string): Contest[] {
+	public async getContests(username?: string) {
 		this.endpoint = 'get-contests';
 
 		try {
-			if(username)
-				this.response = this.get(`username: ${username}`).then(res => {
-					return res;
-				});
-			else
-				this.response = this.get().then(res => {
-					return res;
-				});
+			if(username) {
+				this.response = await this.get(`username=${username}`)
+				return this.response;
+			}
+			else {
+				this.response = this.get()
+				return this.response;
+			}
+
         } catch (error) {
             console.error('Error during listing contests', error);
             return null;

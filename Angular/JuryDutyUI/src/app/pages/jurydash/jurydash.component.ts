@@ -15,12 +15,13 @@ const { USER_DATA } = StorageKey;
   styleUrls: ['./jurydash.component.scss']
 })
 export class JurydashComponent implements OnInit {
-  contestList: any;
+  contestList: Contest[];
   selectedContest: Contest;
   selectedTeam: Team;
   userData: User;
   teamList: any;
   memberList: any;
+  panelOpenState = false;
 
   constructor(private contestService: ContestService,
               private teamService: TeamService,
@@ -29,7 +30,9 @@ export class JurydashComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.contestList = this.contestService.getContests(this.userData.username);
+    this.contestService.getContests(this.userData.username).then((res: Contest[]) => {
+      this.contestList = res;
+    });
   }
 
   onSelectTeam(team: Team): void {

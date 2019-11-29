@@ -10,18 +10,32 @@ import javax.persistence.Table;
 public class UserToContest {
 	
 	@Id
+	@Column(name = "id")
+	Integer id;
+	
+	
 	@Column(name = "contest_id")
-	Integer contest_id;
+	Integer contestId;
 	
 	@Column(name = "username")
 	String username;
 
-	public Integer getContest_id() {
-		return contest_id;
+	
+
+	public Integer getId() {
+		return id;
 	}
 
-	public void setContest_id(Integer contest_id) {
-		this.contest_id = contest_id;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getContestId() {
+		return contestId;
+	}
+
+	public void setContestId(Integer contestId) {
+		this.contestId = contestId;
 	}
 
 	public String getUsername() {
@@ -34,7 +48,7 @@ public class UserToContest {
 
 	public UserToContest(Integer contest_id, String username) {
 		super();
-		this.contest_id = contest_id;
+		this.contestId = contest_id;
 		this.username = username;
 	}
 	

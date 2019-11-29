@@ -10,4 +10,5 @@ import com.mps.juryapp.model.UsersInTeams;
 @Repository
 public interface UsersInTeamsRepository extends JpaRepository<UsersInTeams, Integer> {
 	List<UsersInTeams> findByTeamId(Integer teamId);
+	List<UsersInTeams> findByUserId(Integer userId);
 }

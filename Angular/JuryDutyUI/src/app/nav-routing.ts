@@ -18,7 +18,7 @@ export const navRoutes: NavRoute[] = [
     {
         data: { title: 'General' },
         icon: 'dashboard',
-        path: 'general',
+        path: 'general', 
         loadChildren: () =>
             import('./pages/generaldash/generaldash.module').then(
                 m => m.GeneraldashModule,
@@ -48,7 +48,7 @@ export const navRoutes: NavRoute[] = [
         pathMatch: 'full',
     },
     {
-        data: {title: 'AcceptUsers'},
+        data: {title: 'Accept Users'},
         icon: 'menu',
         group: '',
         path: 'accept-users',
@@ -58,7 +58,7 @@ export const navRoutes: NavRoute[] = [
             ),
     },
     {
-        data: {title: 'JuryBoard'},
+        data: {title: 'Jury Board'},
         icon: 'work',
         group: '',
         path: 'app-jurydash',

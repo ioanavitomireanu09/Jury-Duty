@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 export abstract class CrudService<T = any> {
     abstract endpoint;
-    url = "http://localhost:8081";
+    url = "http://localhost:8080";
 
     protected constructor(protected http: HttpClient) {}
 

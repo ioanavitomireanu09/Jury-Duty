@@ -1,5 +1,7 @@
 package com.mps.juryapp.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,12 +27,15 @@ import com.mps.juryapp.model.Grades;
 import com.mps.juryapp.model.JwtRequest;
 import com.mps.juryapp.model.Team;
 import com.mps.juryapp.model.TempUser;
+import com.mps.juryapp.model.User;
 import com.mps.juryapp.model.UserGroup;
 import com.mps.juryapp.model.UserToContest;
 import com.mps.juryapp.model.UsersInTeams;
 import com.mps.juryapp.repository.TeamRepository;
 import com.mps.juryapp.repository.TempUserRepository;
 import com.mps.juryapp.repository.UserGroupRepository;
+import com.mps.juryapp.repository.UserRepository;
+import com.mps.juryapp.repository.UserToContestRepository;
 import com.mps.juryapp.repository.UsersInTeamsRepository;
 import com.mps.juryapp.service.ContestService;
 import com.mps.juryapp.service.ContestToTeamsService;
@@ -38,6 +43,7 @@ import com.mps.juryapp.service.GradesService;
 import com.mps.juryapp.service.TeamService;
 import com.mps.juryapp.service.UserService;
 import com.mps.juryapp.service.VoteTeam;
+import com.mps.juryapp.util.BuilderDto;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -50,6 +56,10 @@ public class CoreController {
 	UsersInTeamsRepository usersInTeamsRepository;
 	@Autowired
 	TeamRepository teamRepository;
+	@Autowired
+	UserRepository userRepository; 
+	@Autowired
+	UserToContestRepository userToContestRepository;
 	
 	@Autowired
 	UserService userService;
@@ -61,6 +71,8 @@ public class CoreController {
 	GradesService gradesService;
 	@Autowired
 	TeamService teamService;
+	@Autowired
+	BuilderDto builderDto;
 
 	
 	@RequestMapping(value = "/user-requests", method = RequestMethod.GET, produces = "application/json")
@@ -155,28 +167,47 @@ public class CoreController {
 	@RequestMapping(value = "/get-members", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<List<UserDto>> getMembers(@RequestParam(name = "teamId") Integer teamId) {
+		List<UserDto> usersDtoList = new ArrayList<UserDto>();
 		try {
 			Team currentTeam = (Team)this.teamRepository.findById(teamId).orElse(null);
 			if (currentTeam == null) {
 				return null;
 			} else {
 				List<UsersInTeams> usersInTeamsList = this.usersInTeamsRepository.findByTeamId(teamId);
+				for(UsersInTeams usrInTeam : usersInTeamsList) {
+					User user = (User)this.userRepository.findById(usrInTeam.getUserId()).orElse(null);
+					if (user != null) {
+						usersDtoList.add(this.builderDto.userToDto(user));
+					}
+				}
 				
 			}
+			return ResponseEntity.ok(usersDtoList);
 		} catch (Exception e) {
 			// TODO: handle exception
+			return null;
 		}
 		
-		return null;
+		
 	}
 
 
 	
 	@RequestMapping(value = "/get-teams", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<List<Team>> getTeams(@RequestParam(name = "contestId", required = false) Integer contestId) {
-		if (contestId == null) {
-//			return ResponseEntity.ok(contestService.getContests());			
+	public ResponseEntity<HashSet<Team>> getTeams(@RequestParam(name = "contestId", required = false) Integer contestId) {
+		HashSet<Team> teamList = new HashSet<Team>();
+		if (contestId != null) {
+			List<UserToContest> userList = this.userToContestRepository.findByContestId(contestId);
+			for (UserToContest usrToContest : userList) {
+				User user = this.userRepository.findByUsername(usrToContest.getUsername());
+				UsersInTeams usersInTeams = this.usersInTeamsRepository.findByUserId(user.getId()).get(0);
+				Team team = (Team)this.teamRepository.findById(usersInTeams.getTeamId()).orElse(null);
+				if (team != null) {
+					teamList.add(team);					
+				}
+			}
+			return ResponseEntity.ok(teamList);			
 		} else {
 //			return ResponseEntity.ok(contestService.getContests(username));	
 		}

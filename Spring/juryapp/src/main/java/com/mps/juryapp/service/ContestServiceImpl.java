@@ -147,21 +147,31 @@ public class ContestServiceImpl implements ContestService {
 		User user = userRepository.findByUsername(username);
 		List<ContestDto> contestsDtoList = new ArrayList<ContestDto>();
 		List<Contest> contestList = new ArrayList<Contest>();
-		if(user.getGroupId() == "JRT") {
-			List<Integer> contestForUser = (List<Integer>) userToContestRepository.findByUsername(username).stream().map(contestToUser -> {
-				return contestToUser.getContest_id();
-			});
-			contestList = (List<Contest>) contestRepository.findAll().stream().filter((contest) -> contestForUser.indexOf(contest.getId()) != -1);
+		if(user.getGroupId().equals("JRT")) {
+			List<UserToContest> userToContestList = (List<UserToContest>) this.userToContestRepository.findByUsername(username);
+			List<Integer> contestForUser = new ArrayList<Integer>();
+			
+			for (UserToContest usrToContest: userToContestList) {
+				contestForUser.add(usrToContest.getContestId());
+			}
+			
+			
+			
+			for ( Contest contest: this.contestRepository.findAll()) {
+				if (contestForUser.indexOf(contest.getId()) != -1) {
+					contestList.add(contest);
+				}
+			}
 			for(Contest contest : contestList) {
 				contestsDtoList.add(this.builderDto.contestToDto(contest));
 			}			
-		} else if (user.getGroupId() == "ORG") {
-			contestList = (List<Contest>) contestRepository.findAll().stream().filter((contest) -> contest.getOrgUsername().equals(username));
+		} else if (user.getGroupId().equals("ORG")) {
+			contestList = (List<Contest>) this.contestRepository.findAll().stream().filter((contest) -> contest.getOrgUsername().equals(username));
 			for(Contest contest : contestList) {
 				contestsDtoList.add(this.builderDto.contestToDto(contest));
 			}			
-		} else if (user.getGroupId() == "ADM"){
-			contestList = contestRepository.findAll();
+		} else if (user.getGroupId().equals("ADM")){
+			contestList = this.contestRepository.findAll();
 			for(Contest contest : contestList) {
 				contestsDtoList.add(this.builderDto.contestToDto(contest));
 			}
@@ -173,10 +183,9 @@ public class ContestServiceImpl implements ContestService {
 	public String addUserToContest(UserToContest userToContest) {
 		String response = "";
 		try {
-			userToContestRepository.save(userToContest);
+			this.userToContestRepository.save(userToContest);
 			response = "SUCCESS";
 		} catch (Exception e) {
-			// TODO: handle exception
 			response = "ERROR";
 		}
 		return response;
