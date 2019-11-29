@@ -76,9 +76,9 @@
         <mat-form-field>
           <mat-label>Select a category</mat-label>
           <mat-select [(value)]="gradeType">
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option2">Option 2</mat-option>
-            <mat-option value="option3">Option 3</mat-option>
+            <div *ngFor="let option of gradeTypeList">
+              <mat-option value="{{option}}">{{option}}</mat-option>
+            </div>
           </mat-select>
         </mat-form-field>
         <mat-form-field>

@@ -1,6 +1,7 @@
 package com.mps.juryapp.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import com.mps.juryapp.dto.ContestDto;
 import com.mps.juryapp.dto.GradesDto;
 import com.mps.juryapp.dto.ContestToInsert;
 import com.mps.juryapp.dto.Stats;
+import com.mps.juryapp.dto.UserDto;
 import com.mps.juryapp.model.Contest;
 import com.mps.juryapp.model.Grades;
 import com.mps.juryapp.model.JwtRequest;
@@ -26,12 +28,14 @@ import com.mps.juryapp.model.TempUser;
 import com.mps.juryapp.model.UserGroup;
 import com.mps.juryapp.model.UserToContest;
 import com.mps.juryapp.model.UsersInTeams;
+import com.mps.juryapp.repository.TeamRepository;
 import com.mps.juryapp.repository.TempUserRepository;
 import com.mps.juryapp.repository.UserGroupRepository;
 import com.mps.juryapp.repository.UsersInTeamsRepository;
 import com.mps.juryapp.service.ContestService;
 import com.mps.juryapp.service.ContestToTeamsService;
 import com.mps.juryapp.service.GradesService;
+import com.mps.juryapp.service.TeamService;
 import com.mps.juryapp.service.UserService;
 import com.mps.juryapp.service.VoteTeam;
 
@@ -44,6 +48,8 @@ public class CoreController {
 	UserGroupRepository userGroupRepository; 
 	@Autowired
 	UsersInTeamsRepository usersInTeamsRepository;
+	@Autowired
+	TeamRepository teamRepository;
 	
 	@Autowired
 	UserService userService;
@@ -53,6 +59,9 @@ public class CoreController {
 	ContestToTeamsService contestToTeamsService;
 	@Autowired
 	GradesService gradesService;
+	@Autowired
+	TeamService teamService;
+
 	
 	@RequestMapping(value = "/user-requests", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -119,8 +128,16 @@ public class CoreController {
 	public ResponseEntity<String> addUserToContest(@RequestBody UsersInTeams usersInTeams) {
 		String response = "";
 		try {
-			usersInTeamsRepository.save(usersInTeams);
-			response = "SUCCESS";
+			Team currentTeam = (Team)this.teamRepository.findById(usersInTeams.getTeamId()).orElse(null);
+			if (currentTeam == null) {
+				response = "ERROR";
+			} else if (currentTeam.getNumOfParticipants() > this.usersInTeamsRepository.findByTeamId(currentTeam.getId()).size()) {
+				usersInTeamsRepository.save(usersInTeams);
+				response = "SUCCESS";
+			} else {
+				response = "ERROR";
+			}
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			response = "ERROR";
@@ -128,15 +145,45 @@ public class CoreController {
 		return ResponseEntity.ok(response);
 	}
 	
-//	@RequestMapping(value = "/get-teams", method = RequestMethod.GET, produces = "application/json")
-//	@ResponseBody
-//	public ResponseEntity<List<Team>> getTeams(@RequestParam(name = "username", required = false) String username) {
-//		if (username == null) {
+	@RequestMapping(value = "/create-team", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<String> createTeam(@RequestBody Team team) {
+		
+		return ResponseEntity.ok(teamService.createTeam(team));
+	}
+	
+	@RequestMapping(value = "/get-members", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<List<UserDto>> getMembers(@RequestParam(name = "teamId") Integer teamId) {
+		try {
+			Team currentTeam = (Team)this.teamRepository.findById(teamId).orElse(null);
+			if (currentTeam == null) {
+				return null;
+			} else {
+				List<UsersInTeams> usersInTeamsList = this.usersInTeamsRepository.findByTeamId(teamId);
+				
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return null;
+	}
+
+
+	
+	@RequestMapping(value = "/get-teams", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<List<Team>> getTeams(@RequestParam(name = "contestId", required = false) Integer contestId) {
+		if (contestId == null) {
 //			return ResponseEntity.ok(contestService.getContests());			
-//		} else {
+		} else {
 //			return ResponseEntity.ok(contestService.getContests(username));	
-//		}
-//	}
+		}
+		return null;
+	}
+	
+	
 	@RequestMapping(value = "/get-stats", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public ResponseEntity<List<Stats>> getTeamsStats(@RequestBody Integer idContests) {

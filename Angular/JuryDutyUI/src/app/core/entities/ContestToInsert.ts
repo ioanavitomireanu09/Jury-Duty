@@ -8,5 +8,6 @@ export class ContestToInsert {
     numOfJurys: number;
     password: string;
     numOfRounds: number;
+    orgUsername: string;
     gradeWeightList: GradeWeight[];
   }

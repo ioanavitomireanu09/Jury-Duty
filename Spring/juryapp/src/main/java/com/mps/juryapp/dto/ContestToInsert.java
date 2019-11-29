@@ -11,12 +11,20 @@ public class ContestToInsert {
 	private Integer numOfJurys;
 	private String password;
 	private Integer numOfRounds;
+	private String orgUsername;
 	private List<GradeWeight> gradeWeightList;
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getOrgUsername() {
+		return orgUsername;
+	}
+	public void setOrgUsername(String orgUsername) {
+		this.orgUsername = orgUsername;
 	}
 	public Integer getContestTypeId() {
 		return contestTypeId;
@@ -60,8 +68,10 @@ public class ContestToInsert {
 	public void setGradeWeightList(List<GradeWeight> gradeWeightList) {
 		this.gradeWeightList = gradeWeightList;
 	}
+	
 	public ContestToInsert(String name, Integer contestTypeId, Integer isPrivate, Integer tieBreakerId,
-			Integer numOfJurys, String password, Integer numOfRounds, List<GradeWeight> gradeWeightList) {
+			Integer numOfJurys, String password, Integer numOfRounds, String orgUsername,
+			List<GradeWeight> gradeWeightList) {
 		super();
 		this.name = name;
 		this.contestTypeId = contestTypeId;
@@ -70,6 +80,7 @@ public class ContestToInsert {
 		this.numOfJurys = numOfJurys;
 		this.password = password;
 		this.numOfRounds = numOfRounds;
+		this.orgUsername = orgUsername;
 		this.gradeWeightList = gradeWeightList;
 	}
 	public ContestToInsert() {

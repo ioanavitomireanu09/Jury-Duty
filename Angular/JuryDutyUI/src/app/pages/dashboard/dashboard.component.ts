@@ -3,6 +3,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angu
 import { ContestModalComponent } from 'src/app/modals/contest-modal/contest-modal.component';
 import { ContestConsoleComponent } from 'src/app/modals/contest-console/contest-console.component'
 import { ContestToInsert } from 'src/app/core/entities/ContestToInsert';
+import { ContestService } from 'src/app/core/services/api/contest.service';
+import { StorageKey } from 'src/app/core/services/storage/storage.model';
+import { StorageService } from 'src/app/core/services/storage/storage.service';
+const { USER_DATA } = StorageKey;
+
 export class Team {
 	id: number;
 	name: string;
@@ -41,7 +46,7 @@ export class DashboardComponent implements OnInit {
 	selectedTeam: Team;
 	public contestToInsert = null;
 
-	constructor(public dialog: MatDialog) { }
+	constructor(public dialog: MatDialog, private contestService: ContestService, private storage: StorageService) { }
 
 	ngOnInit() {
 		const stats = new StatsContest();
@@ -101,9 +106,15 @@ export class DashboardComponent implements OnInit {
 			dialogConfig);
 
 
-		dialogRef.afterClosed().subscribe(
-			val => console.log('Dialog output:', val)
-		);
+		dialogRef.afterClosed()
+			.subscribe(
+				(contest: ContestToInsert) => {
+					contest.orgUsername = this.storage.read(USER_DATA).userDetails.username;
+					let response = this.contestService.saveEditContest(contest)
+					console.log('Dialog output:', contest)
+					console.log(response);
+				}
+			);
 	}
 
 	onContestConsole() {

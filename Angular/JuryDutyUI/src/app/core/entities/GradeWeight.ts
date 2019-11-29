@@ -1,6 +1,6 @@
 export class GradeWeight {
-  gradeWeight: number;
   gradeType: string;
+  gradeWeight: number;
 
   constructor(gradeType?: string, gradeWeight?: number) {
     this.gradeType = gradeType;

@@ -20,7 +20,7 @@ public class ContestToGrades {
 	private Integer contestId;
 	
 	@Column(name = "grade_type_id")
-	private Integer gradeTypeId;
+	private String gradeTypeId;
 
 	@Column(name = "grade_weight")
 	private Integer gradeWeight;
@@ -41,11 +41,11 @@ public class ContestToGrades {
 		this.contestId = contestId;
 	}
 
-	public Integer getGradeTypeId() {
+	public String getGradeTypeId() {
 		return gradeTypeId;
 	}
 
-	public void setGradeTypeId(Integer gradeTypeId) {
+	public void setGradeTypeId(String gradeTypeId) {
 		this.gradeTypeId = gradeTypeId;
 	}
 
@@ -57,7 +57,7 @@ public class ContestToGrades {
 		this.gradeWeight = gradeWeight;
 	}
 
-	public ContestToGrades(Integer id, Integer contestId, Integer gradeTypeId, Integer gradeWeight) {
+	public ContestToGrades(Integer id, Integer contestId, String gradeTypeId, Integer gradeWeight) {
 		super();
 		this.id = id;
 		this.contestId = contestId;
